@@ -1,29 +1,63 @@
 import React from "react";
-import {TAX_BY_PROVINCES} from "./taxByProvinces";
+import { TAX_BY_PROVINCES } from "./taxByProvinces";
 type PriceMembers = {
-    price: number | string,
-    provinceId: number,
-    tipsPercentage: number
-}
+  basePrice: number | string;
+  provinceId: number;
+  tipsPercentage: number;
+};
+
+type PriceDetails = {
+  total: string;
+  taxes: {
+    percentage: string;
+    amount: string;
+  };
+  tips: string;
+};
 export const useTotalPrice = ({
-                      price,
-                      provinceId,
-                      tipsPercentage
-                  }: PriceMembers): string => {
-    const [total, setTotal] = React.useState<string>('')
+  basePrice,
+  provinceId,
+  tipsPercentage,
+}: PriceMembers): PriceDetails => {
+  const [priceDetails, setPriceDetails] = React.useState<PriceDetails>({
+    total: "0",
+    taxes: {
+      percentage: "0",
+      amount: "0",
+    },
+    tips: "0",
+  });
 
-    React.useEffect(() => {
-        const parsedPrice = (Number(price)||0)
-        const province = TAX_BY_PROVINCES.find(province => province.id === Number(provinceId))
-        const taxPrice = (parsedPrice * (province?.value || 1))
-        const tipsPrice = parsedPrice * (Number(tipsPercentage) / 100)
-        console.log({taxPrice, price:parsedPrice, tax: province?.value, provinceId, tipsPrice,tipsPercentage})
-        const total = (taxPrice + tipsPrice + parsedPrice).toFixed(2)
-        setTotal(total)
-    }, [price,
-        provinceId,
-        tipsPercentage])
+  React.useEffect(() => {
+    function getTaxRate(provinceId: number) {
+      const foundTax = TAX_BY_PROVINCES.find(
+        (province) => province.id === Number(provinceId)
+      );
+      return !foundTax ? 1 : foundTax.value;
+    }
+    const parsedPrice = Number(basePrice) || 0;
+    const taxRate = getTaxRate(provinceId);
+    const taxAmount = parsedPrice * taxRate;
+    const intermediateTotal = parsedPrice + taxAmount;
+    const tips = intermediateTotal * (Number(tipsPercentage) / 100);
+    console.log({
+      taxPrice: taxAmount,
+      price: parsedPrice,
+      tax: taxRate,
+      provinceId,
+      tipsPrice: tips,
+      tipsPercentage,
+    });
+    const total = (taxAmount + tips + parsedPrice).toFixed(2);
+    setPriceDetails({
+      total,
+      taxes: {
+        amount: taxAmount.toFixed(2),
+        percentage: (taxRate * 100).toFixed(2),
+      },
+      tips: tips.toFixed(2),
+    });
+  }, [basePrice, provinceId, tipsPercentage]);
 
-    return total
-
-}
+  return priceDetails;
+};
