@@ -40,14 +40,7 @@ export const useTotalPrice = ({
     const taxAmount = parsedPrice * taxRate;
     const intermediateTotal = parsedPrice + taxAmount;
     const tips = intermediateTotal * (Number(tipsPercentage) / 100);
-    console.log({
-      taxPrice: taxAmount,
-      price: parsedPrice,
-      tax: taxRate,
-      provinceId,
-      tipsPrice: tips,
-      tipsPercentage,
-    });
+
     const total = (taxAmount + tips + parsedPrice).toFixed(2);
     setPriceDetails({
       total,
