@@ -54,7 +54,7 @@ export default function Form() {
 
       <FormStrap>
         <FormGroup className={"mb-4 mt-3"}>
-          <Label for="price">Price HT</Label>
+          <Label for="price">Price</Label>
           <Input
             value={price}
             placeholder={"0"}
@@ -68,30 +68,30 @@ export default function Form() {
         </FormGroup>
 
         <FormGroup>
-          <Label for="tips">Tips</Label>
+          <Label for="tips">Tip</Label>
           <Row xs={4} className={"gy-2"}>
             <InputGroup className={"mb-2"}>
               <Input
-                value={tips}
+                value={tips || 0}
                 name={"tips"}
                 onKeyDown={(e) =>
                   ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
                 }
                 onChange={handleChange}
-                type={"number"}
+                type={"text"}
               />
               <InputGroupText>%</InputGroupText>
             </InputGroup>
-            {TIPS.map((tip) => {
-              const id = `radio-${tip}`;
+            {TIPS.map((currentTip) => {
+              const id = `radio-${currentTip}`;
               return (
-                <Col key={tip}>
+                <Col key={currentTip}>
                   <Input
                     type={"radio"}
                     name={"tips"}
-                    value={tip}
+                    value={currentTip}
                     color={"secondary"}
-                    checked={Number(tips) === tip}
+                    checked={Number(tips) === currentTip}
                     className={"btn-check"}
                     id={id}
                     onChange={handleChange}
@@ -101,7 +101,7 @@ export default function Form() {
                     className={"btn btn-outline-success tip-control-label"}
                     for={id}
                   >
-                    {tip}%
+                    {currentTip}%
                   </Label>
                 </Col>
               );
@@ -121,7 +121,7 @@ export default function Form() {
         </ListGroupItem>
         <ListGroupItem className={"border-0 d-flex justify-content-between"}>
           <span>
-            Tips
+            Tip
             <span className={"fs-0 text-muted ms-1"}>({tips}%)</span>
           </span>
           <span className={"fs-6"}>{computedTips}</span>

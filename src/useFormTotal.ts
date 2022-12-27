@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export type TotalFormFields = {
   price: number | string;
   provinceId: number;
-  tips: number;
+  tips: number | string;
 };
 
 export const useFormTotal = (): [
@@ -13,7 +13,7 @@ export const useFormTotal = (): [
   const { fields, handleChange } = useForm<TotalFormFields>({
     price: "",
     provinceId: 1,
-    tips: 0,
+    tips: "",
   });
 
   return [fields, handleChange];
