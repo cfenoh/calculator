@@ -121,7 +121,7 @@ export default function Form() {
             })}
           </Row>
         </FormGroup>
-        <FormGroup check className={"mt-5"}>
+        <FormGroup check className={"mt-4"}>
           <Input
             type="checkbox"
             id={"shouldApplyTipOnBasePrice"}
@@ -152,7 +152,9 @@ export default function Form() {
         </ListGroupItem>
       </ListGroup>
       <Row className={"total-result mt-1 align-items-center"}>
-        <Col className={"col-xs-2"}>Total TTC</Col>
+        <Col className={"col-xs-2"}>
+          Total <span className={"text-muted fs-0"}>incl tax</span>
+        </Col>
         <Col className={"text-end fs-1"}>{total}</Col>
       </Row>
     </Container>
