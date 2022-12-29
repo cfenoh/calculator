@@ -14,17 +14,23 @@ import {
 } from "reactstrap";
 import { useTotalPrice } from "./useTotalPrice";
 import { TAX_BY_PROVINCES } from "./taxByProvinces";
-import { useFormTotal } from "./useFormTotal";
+import { useTipForm } from "./useTipForm";
 import { TIPS } from "./tips.const";
 import ProvinceSelector from "./components/ProvinceSelector/ProvinceSelector";
 
 export default function Form() {
-  const [{ price, provinceId, tips }, handleChange] = useFormTotal();
+  const [{ price, provinceId, tips, shouldApplyTipOnBasePrice }, handleChange] =
+    useTipForm();
   const {
     total,
     tips: computedTips,
-    taxes,
-  } = useTotalPrice({ basePrice: price, provinceId, tipsPercentage: tips });
+    tax,
+  } = useTotalPrice({
+    basePrice: price,
+    provinceId,
+    tipRate: tips,
+    shouldApplyTipOnBasePrice,
+  });
 
   return (
     <Container className={"p-4"}>
@@ -42,9 +48,7 @@ export default function Form() {
               fontWeight: 600,
               lineHeight: "27px",
             }}
-          >
-            Tip&Tax
-          </h1>
+          ></h1>
           <ProvinceSelector
             onChange={handleChange}
             provinces={TAX_BY_PROVINCES}
@@ -54,16 +58,23 @@ export default function Form() {
 
       <FormStrap>
         <FormGroup className={"mb-4 mt-3"}>
-          <Label for="price">Price</Label>
+          <Label for="price">
+            Price
+            <span className={"fs-0 text-muted ms-0 fst-italic"}>
+              (excl tax)
+            </span>
+          </Label>
           <Input
             value={price}
             placeholder={"0"}
             name={"price"}
+            id={"price"}
             onKeyDown={(e) =>
               ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
             }
             onChange={handleChange}
             type={"number"}
+            className={"form-base-input"}
           />
         </FormGroup>
 
@@ -74,11 +85,13 @@ export default function Form() {
               <Input
                 value={tips || 0}
                 name={"tips"}
+                id={"tips"}
                 onKeyDown={(e) =>
                   ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
                 }
                 onChange={handleChange}
                 type={"text"}
+                className={"form-base-input"}
               />
               <InputGroupText>%</InputGroupText>
             </InputGroup>
@@ -108,16 +121,27 @@ export default function Form() {
             })}
           </Row>
         </FormGroup>
+        <FormGroup check className={"mt-5"}>
+          <Input
+            type="checkbox"
+            id={"shouldApplyTipOnBasePrice"}
+            name={"shouldApplyTipOnBasePrice"}
+            className={"input-checkbox me-3"}
+            onChange={handleChange}
+            checked={shouldApplyTipOnBasePrice}
+          />
+          <Label check for={"shouldApplyTipOnBasePrice"}>
+            Apply Tip on the base price
+          </Label>
+        </FormGroup>
       </FormStrap>
       <ListGroup flush className={"mt-5 border-dotted pt-3 fw-normal"}>
         <ListGroupItem className={"border-0 d-flex justify-content-between"}>
           <span>
             Taxes{" "}
-            <span className={"fs-0 text-muted ms-1"}>
-              ({taxes.percentage}%)
-            </span>
+            <span className={"fs-0 text-muted ms-1"}>({tax.percentage}%)</span>
           </span>
-          <span className={"fs-6"}>{taxes.amount}</span>
+          <span className={"fs-6"}>{tax.amount}</span>
         </ListGroupItem>
         <ListGroupItem className={"border-0 d-flex justify-content-between"}>
           <span>

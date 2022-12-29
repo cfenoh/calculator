@@ -4,9 +4,10 @@ export type TotalFormFields = {
   price: number | string;
   provinceId: number;
   tips: number | string;
+  shouldApplyTipOnBasePrice: boolean;
 };
 
-export const useFormTotal = (): [
+export const useTipForm = (): [
   TotalFormFields,
   (event: React.ChangeEvent<HTMLInputElement>) => void
 ] => {
@@ -14,6 +15,7 @@ export const useFormTotal = (): [
     price: "",
     provinceId: 1,
     tips: "",
+    shouldApplyTipOnBasePrice: false,
   });
 
   return [fields, handleChange];
@@ -23,11 +25,13 @@ function useForm<T>(initialFields: T) {
   const [fields, setFields] = useState(initialFields);
 
   const handleChange = React.useCallback(
-    ({ target }: React.ChangeEvent<HTMLInputElement>) =>
+    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
       setFields((prevFields) => ({
         ...prevFields,
-        [target.name]: Number(target.value),
-      })),
+        [target.name]:
+          target.type === "checkbox" ? target.checked : Number(target.value),
+      }));
+    },
     []
   );
 
@@ -37,3 +41,5 @@ function useForm<T>(initialFields: T) {
 
   return { fields, handleChange, reset };
 }
+
+const _convertToBoolean = (value: string): boolean => value === "on";

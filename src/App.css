@@ -6,8 +6,7 @@
 body {
   font-family: "Manrope", sans-serif;
 }
-/*input not radio*/
-input:not([type="radio"]){
+.form-base-input{
   border: 1px solid #d0d5dd !important;
   border-radius: 4px !important;
   padding: 10px 8px 10px 14px !important;
@@ -16,16 +15,14 @@ input:not([type="radio"]){
   line-height: 19px !important;
   height: 48px;
 }
-select {
+.input-checkbox{
   border: 1px solid #d0d5dd !important;
   border-radius: 4px !important;
-  /*color: #64748b !important;*/
-  font-size: 14px !important;
-  line-height: 19px !important;
-  height: 48px;
+  width: 16px;
+  height: 16px;
 }
-.card {
-  padding: 2em;
+.input-checkbox:checked{
+  background: #047857;
 }
 
 label {
@@ -63,7 +60,4 @@ label {
 
 .fs-0 {
   font-size: 14px;
-}
-.read-the-docs {
-  color: #888;
 }

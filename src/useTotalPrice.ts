@@ -1,14 +1,9 @@
 import React from "react";
 import { TAX_BY_PROVINCES } from "./taxByProvinces";
-type PriceMembers = {
-  basePrice: number | string;
-  provinceId: number;
-  tipsPercentage: number;
-};
 
 type PriceDetails = {
   total: string;
-  taxes: {
+  tax: {
     percentage: string;
     amount: string;
   };
@@ -17,11 +12,17 @@ type PriceDetails = {
 export const useTotalPrice = ({
   basePrice,
   provinceId,
-  tipsPercentage,
-}: PriceMembers): PriceDetails => {
+  tipRate,
+  shouldApplyTipOnBasePrice,
+}: {
+  basePrice: number | string;
+  provinceId: number;
+  tipRate: number | string;
+  shouldApplyTipOnBasePrice: boolean;
+}): PriceDetails => {
   const [priceDetails, setPriceDetails] = React.useState<PriceDetails>({
     total: "0",
-    taxes: {
+    tax: {
       percentage: "0",
       amount: "0",
     },
@@ -35,22 +36,25 @@ export const useTotalPrice = ({
       );
       return !foundTax ? 1 : foundTax.value;
     }
-    const parsedPrice = Number(basePrice) || 0;
+    const priceTaxEcluded = Number(basePrice) || 0;
     const taxRate = getTaxRate(provinceId);
-    const taxAmount = parsedPrice * taxRate;
-    const intermediateTotal = parsedPrice + taxAmount;
-    const tips = intermediateTotal * (Number(tipsPercentage) / 100);
+    const tax = priceTaxEcluded * taxRate;
+    const totalTaxIncludedBeforeTip = priceTaxEcluded + tax;
+    const tipInFraction = Number(tipRate) / 100;
+    const tip = shouldApplyTipOnBasePrice
+      ? priceTaxEcluded * tipInFraction
+      : totalTaxIncludedBeforeTip * tipInFraction;
+    const total = (tax + tip + priceTaxEcluded).toFixed(2);
 
-    const total = (taxAmount + tips + parsedPrice).toFixed(2);
     setPriceDetails({
       total,
-      taxes: {
-        amount: taxAmount.toFixed(2),
+      tax: {
+        amount: tax.toFixed(2),
         percentage: (taxRate * 100).toFixed(2),
       },
-      tips: tips.toFixed(2),
+      tips: tip.toFixed(2),
     });
-  }, [basePrice, provinceId, tipsPercentage]);
+  }, [basePrice, provinceId, tipRate, shouldApplyTipOnBasePrice]);
 
   return priceDetails;
 };
