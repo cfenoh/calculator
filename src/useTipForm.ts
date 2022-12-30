@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 
-export type TotalFormFields = {
+export type TipFormFields = {
   price: number | string;
   provinceId: number;
   tips: number | string;
   shouldApplyTipOnBasePrice: boolean;
 };
 
-export const useTipForm = (): [
-  TotalFormFields,
-  (event: React.ChangeEvent<HTMLInputElement>) => void
-] => {
-  const { fields, handleChange } = useForm<TotalFormFields>({
-    price: "",
-    provinceId: 1,
-    tips: "",
-    shouldApplyTipOnBasePrice: false,
-  });
+export const useTipForm = (
+  initialValues: TipFormFields
+): [TipFormFields, (event: React.ChangeEvent<HTMLInputElement>) => void] => {
+  const { fields, handleChange } = useForm<TipFormFields>(initialValues);
 
   return [fields, handleChange];
 };

@@ -15,12 +15,17 @@ import {
 import { useTotalPrice } from "./useTotalPrice";
 import { TAX_BY_PROVINCES } from "./taxByProvinces";
 import { useTipForm } from "./useTipForm";
-import { TIPS } from "./tips.const";
+import { TIPS_BY_SERVICE } from "./tips.const";
 import ProvinceSelector from "./components/ProvinceSelector/ProvinceSelector";
 
 export default function Form() {
   const [{ price, provinceId, tips, shouldApplyTipOnBasePrice }, handleChange] =
-    useTipForm();
+    useTipForm({
+      price: "",
+      provinceId: 1,
+      tips: "",
+      shouldApplyTipOnBasePrice: false,
+    });
   const {
     total,
     tips: computedTips,
@@ -61,7 +66,7 @@ export default function Form() {
           <Label for="price">
             Price
             <span className={"fs-0 text-muted ms-0 fst-italic"}>
-              (excl tax)
+              (excl. taxes)
             </span>
           </Label>
           <Input
@@ -74,54 +79,63 @@ export default function Form() {
             }
             onChange={handleChange}
             type={"number"}
-            className={"form-base-input"}
+            className={"form-base-input rounded-1"}
           />
         </FormGroup>
 
         <FormGroup>
-          <Label for="tips">Tip</Label>
-          <Row xs={4} className={"gy-2"}>
-            <InputGroup className={"mb-2"}>
-              <Input
-                value={tips || 0}
-                name={"tips"}
-                id={"tips"}
-                onKeyDown={(e) =>
-                  ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
-                }
-                onChange={handleChange}
-                type={"text"}
-                className={"form-base-input"}
-              />
-              <InputGroupText>%</InputGroupText>
-            </InputGroup>
-            {TIPS.map((currentTip) => {
-              const id = `radio-${currentTip}`;
+          <Label htmlFor="tips">How was the service ?</Label>
+          <Row xs={3} lg={5} className={"gy-2 mt-2"}>
+            {TIPS_BY_SERVICE["all"].map(({ rating, value, recommended }) => {
+              const id = `radio-${value}`;
               return (
-                <Col key={currentTip}>
+                <Col key={value}>
                   <Input
                     type={"radio"}
                     name={"tips"}
-                    value={currentTip}
+                    value={value}
                     color={"secondary"}
-                    checked={Number(tips) === currentTip}
+                    checked={tips ? Number(tips) === value : recommended}
                     className={"btn-check"}
                     id={id}
                     onChange={handleChange}
                   />
                   <Label
                     check
-                    className={"btn btn-outline-success tip-control-label"}
+                    className={
+                      "btn btn-outline-success tip-radio-label d-flex justify-content-evenly align-items-center"
+                    }
                     for={id}
                   >
-                    {currentTip}%
+                    <span className={"fs-2 text-capitalize"}>{rating}</span> -{" "}
+                    {value}%
                   </Label>
                 </Col>
               );
             })}
+            <Col>
+              <InputGroup>
+                <Input
+                  type={"text"}
+                  name={"tips"}
+                  value={tips}
+                  id={"custom-tip"}
+                  className={
+                    "tip-radio-label rounded-start-1 placeholder-fst-italic"
+                  }
+                  onKeyDown={(e) =>
+                    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                  }
+                  placeholder={"Ex:20"}
+                  onChange={handleChange}
+                />
+                <InputGroupText>%</InputGroupText>
+              </InputGroup>
+            </Col>
           </Row>
         </FormGroup>
-        <FormGroup check className={"mt-4"}>
+
+        <FormGroup check className={"mt-5"}>
           <Input
             type="checkbox"
             id={"shouldApplyTipOnBasePrice"}
@@ -151,9 +165,9 @@ export default function Form() {
           <span className={"fs-6"}>{computedTips}</span>
         </ListGroupItem>
       </ListGroup>
-      <Row className={"total-result mt-1 align-items-center"}>
+      <Row className={"total-result mt-1 align-items-center rounded"}>
         <Col className={"col-xs-2"}>
-          Total <span className={"text-muted fs-0"}>incl tax</span>
+          Total <span className={"text-muted fs-0"}>incl. taxes</span>
         </Col>
         <Col className={"text-end fs-1"}>{total}</Col>
       </Row>
