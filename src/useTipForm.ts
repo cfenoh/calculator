@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { TipCategory } from "./tips.const";
 
 export type TipFormFields = {
   price: number | string;
   provinceId: number;
-  tips: number | string;
+  tip: number;
+  categoryId: TipCategory["id"];
   shouldApplyTipOnBasePrice: boolean;
 };
 
@@ -19,11 +21,11 @@ function useForm<T>(initialFields: T) {
   const [fields, setFields] = useState(initialFields);
 
   const handleChange = React.useCallback(
-    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { type, name, checked, value } = event.target;
       setFields((prevFields) => ({
         ...prevFields,
-        [target.name]:
-          target.type === "checkbox" ? target.checked : Number(target.value),
+        [name]: type === "checkbox" ? checked : Number(value),
       }));
     },
     []
@@ -35,5 +37,3 @@ function useForm<T>(initialFields: T) {
 
   return { fields, handleChange, reset };
 }
-
-const _convertToBoolean = (value: string): boolean => value === "on";

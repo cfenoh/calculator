@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Col,
   Container,
@@ -15,17 +15,34 @@ import {
 import { useTotalPrice } from "./useTotalPrice";
 import { TAX_BY_PROVINCES } from "./taxByProvinces";
 import { useTipForm } from "./useTipForm";
-import { TIPS_BY_SERVICE } from "./tips.const";
 import ProvinceSelector from "./components/ProvinceSelector/ProvinceSelector";
+import CategoriesSelector from "./components/CategoriesSelector/CategoriesSelector";
+import { useListTipsByCategory } from "./components/Tips/useListTipsByCategory";
+import {
+  _getTipUnitSymbol,
+  Categories,
+  extractInitialTipCategorySubset,
+} from "./components/CategoriesSelector/helper";
+import { tipCategories } from "./tipCategories";
 
 export default function Form() {
-  const [{ price, provinceId, tips, shouldApplyTipOnBasePrice }, handleChange] =
-    useTipForm({
-      price: "",
-      provinceId: 1,
-      tips: "",
-      shouldApplyTipOnBasePrice: false,
-    });
+  const recommendedInputTipRef = useRef<HTMLInputElement>(null);
+  const { initialCategoryId } = extractInitialTipCategorySubset(tipCategories);
+  const [
+    { price, provinceId, categoryId, tip, shouldApplyTipOnBasePrice },
+    handleChange,
+  ] = useTipForm({
+    price: "",
+    provinceId: 1,
+    tip: 0,
+    categoryId: initialCategoryId,
+    shouldApplyTipOnBasePrice: false,
+  });
+
+  const categoryTips = useListTipsByCategory({
+    tipCategories,
+    categoryId: categoryId,
+  });
   const {
     total,
     tips: computedTips,
@@ -33,7 +50,7 @@ export default function Form() {
   } = useTotalPrice({
     basePrice: price,
     provinceId,
-    tipRate: tips,
+    tipRate: tip,
     shouldApplyTipOnBasePrice,
   });
 
@@ -57,6 +74,7 @@ export default function Form() {
           <ProvinceSelector
             onChange={handleChange}
             provinces={TAX_BY_PROVINCES}
+            defaultIndex={6}
           />
         </Col>
       </Row>
@@ -84,18 +102,40 @@ export default function Form() {
         </FormGroup>
 
         <FormGroup>
+          <Label>Select a service</Label>
+          <Row>
+            <Col>
+              <CategoriesSelector
+                categories={Categories}
+                onChange={handleChange}
+              />
+            </Col>
+          </Row>
+        </FormGroup>
+        <FormGroup>
           <Label htmlFor="tips">How was the service ?</Label>
           <Row xs={3} lg={5} className={"gy-2 mt-2"}>
-            {TIPS_BY_SERVICE["all"].map(({ rating, value, recommended }) => {
+            {categoryTips.tips.map(({ rating, value, isRecommendedAmount }) => {
               const id = `radio-${value}`;
+              let innerRef = undefined;
+              if (isRecommendedAmount && !Number(tip)) {
+                innerRef = recommendedInputTipRef;
+                const input = recommendedInputTipRef.current;
+                if (input) {
+                  input.value = String(value);
+                  input.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+              }
+
               return (
                 <Col key={value}>
                   <Input
+                    innerRef={innerRef}
                     type={"radio"}
-                    name={"tips"}
+                    name={"tip"}
                     value={value}
                     color={"secondary"}
-                    checked={tips ? Number(tips) === value : recommended}
+                    checked={tip ? Number(tip) === value : isRecommendedAmount}
                     className={"btn-check"}
                     id={id}
                     onChange={handleChange}
@@ -108,7 +148,8 @@ export default function Form() {
                     for={id}
                   >
                     <span className={"fs-2 text-capitalize"}>{rating}</span> -{" "}
-                    {value}%
+                    {value}
+                    {_getTipUnitSymbol(categoryTips.unit)}
                   </Label>
                 </Col>
               );
@@ -118,7 +159,7 @@ export default function Form() {
                 <Input
                   type={"text"}
                   name={"tips"}
-                  value={tips}
+                  value={tip}
                   id={"custom-tip"}
                   className={
                     "tip-radio-label rounded-start-1 placeholder-fst-italic"
@@ -135,7 +176,7 @@ export default function Form() {
           </Row>
         </FormGroup>
 
-        <FormGroup check className={"mt-5"}>
+        <FormGroup check className={"mt-4"}>
           <Input
             type="checkbox"
             id={"shouldApplyTipOnBasePrice"}
@@ -145,7 +186,7 @@ export default function Form() {
             checked={shouldApplyTipOnBasePrice}
           />
           <Label check for={"shouldApplyTipOnBasePrice"}>
-            Apply Tip on the base price
+            Apply tip before taxes
           </Label>
         </FormGroup>
       </FormStrap>
@@ -160,7 +201,7 @@ export default function Form() {
         <ListGroupItem className={"border-0 d-flex justify-content-between"}>
           <span>
             Tip
-            <span className={"fs-0 text-muted ms-1"}>({tips}%)</span>
+            <span className={"fs-0 text-muted ms-1"}>({tip}%)</span>
           </span>
           <span className={"fs-6"}>{computedTips}</span>
         </ListGroupItem>

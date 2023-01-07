@@ -15,8 +15,8 @@ export default defineConfig({
         "logo.svg",
       ],
       manifest: {
-        name: "TipsBuddy",
-        short_name: "tipsBuddy",
+        name: "TipSmart",
+        short_name: "TipSmart",
         description: "Find and calculate the right tips in Canada",
         theme_color: "#ffffff",
         icons: [

@@ -34,7 +34,7 @@ export const useTotalPrice = ({
       const foundTax = TAX_BY_PROVINCES.find(
         (province) => province.id === Number(provinceId)
       );
-      return !foundTax ? 1 : foundTax.value;
+      return !foundTax ? 1 : Number(foundTax.value) / 100;
     }
     const priceTaxEcluded = Number(basePrice) || 0;
     const taxRate = getTaxRate(provinceId);
