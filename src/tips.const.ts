@@ -1,21 +1,20 @@
-import { tipCategories } from "./tipCategories";
-export interface TipCategory {
+export type Tip = {
+  rating: string;
+  value: number;
+  ratingText: string;
+  isSuggested: boolean;
+};
+export interface Service {
   id: number;
   label: string;
-
   category: string;
   transKey: string;
   unit: string;
   note?: string;
-  items: {
-    rating: string;
-    value: number;
-    ratingText: string;
-    isRecommendedAmount: boolean;
-  }[];
+  tip: Tip[];
 }
 export type SelectableCategoriesProps = {
-  id: TipCategory["id"];
-  label: TipCategory["label"];
-  transKey: TipCategory["transKey"];
+  id: Service["id"];
+  label: Service["label"];
+  transKey: Service["transKey"];
 }[];

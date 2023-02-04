@@ -1,16 +1,16 @@
-import { SelectableCategoriesProps, TipCategory } from "../../tips.const";
-import { tipCategories } from "../../tipCategories";
+import { SelectableCategoriesProps, Service } from "../../tips.const";
+import { serviceList } from "../../serviceList";
 
 export function extractInitialTipCategorySubset(
-  tipCategories: TipCategory[],
+  tipCategories: Service[],
   index: number = 0
 ): {
   initialCategoryId: number;
   initialRecommendedTip: number;
 } {
   const foundCategory = tipCategories[index];
-  const itemWithRecommendedAmount = foundCategory.items.find(
-    (item) => item.isRecommendedAmount
+  const itemWithRecommendedAmount = foundCategory.tip.find(
+    (item) => item.isSuggested
   );
   return {
     initialCategoryId: foundCategory.id,
@@ -20,7 +20,7 @@ export function extractInitialTipCategorySubset(
   };
 }
 
-export const Categories: SelectableCategoriesProps = tipCategories.map(
+export const Categories: SelectableCategoriesProps = serviceList.map(
   ({ id, label, category, transKey }) => ({
     id,
     label: `${category} / ${label}`,
@@ -28,7 +28,7 @@ export const Categories: SelectableCategoriesProps = tipCategories.map(
   })
 );
 
-export const _getTipUnitSymbol = (tipUnit: TipCategory["unit"]): string => {
+export const _getTipUnitSymbol = (tipUnit: Service["unit"]): string => {
   return (
     {
       percentage: "%",

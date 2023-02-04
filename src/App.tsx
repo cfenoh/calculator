@@ -1,12 +1,11 @@
 import React from "react";
-import Form from "./Form";
+import TipForm from "./features/TipForm/TipForm";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
 function App() {
   return (
     <div className="App">
-      <Form />
+      <TipForm />
     </div>
   );
 }

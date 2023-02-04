@@ -1,0 +1,10 @@
+{
+    "heading": "Bienvenue sur TipSmart",
+    "price": {
+        "label": "Prix"
+    },
+    "service": {
+        "label": "sélectionnez un service"
+    },
+    "total": "total"
+}

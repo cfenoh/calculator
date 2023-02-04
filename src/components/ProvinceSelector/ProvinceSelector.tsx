@@ -1,6 +1,5 @@
 import React from "react";
-import { FormGroup, Input, Label } from "reactstrap";
-import numeral from "numeral";
+import { Input } from "reactstrap";
 import { Province } from "../../taxByProvinces";
 
 type ProvinceSelectorProps = {
@@ -16,10 +15,14 @@ const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({
 }) => {
   return (
     <div className={"mb-0 me-1"}>
+      <label htmlFor={"provinceId"} aria-hidden={true} hidden={true}>
+        select a province
+      </label>
       <Input
         type={"select"}
         id={"provinceId"}
         name={"provinceId"}
+        role={"combobox"}
         onChange={onChange}
         className={"border-0 text-success text-uppercase"}
         defaultValue={defaultIndex}

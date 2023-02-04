@@ -1,28 +1,28 @@
-import { TipCategory } from "./tips.const";
+import { Service } from "./tips.const";
 
-export const tipCategories: TipCategory[] = [
+export const serviceList: Service[] = [
   {
     category: "Food service",
     label: "Fast food",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 10,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 12,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 15,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 1,
@@ -32,24 +32,24 @@ export const tipCategories: TipCategory[] = [
     category: "Food service",
     label: "Sit-down restaurant",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 15,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 18,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 20,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 2,
@@ -59,24 +59,24 @@ export const tipCategories: TipCategory[] = [
     category: "Food service",
     label: "Coffee shop",
     unit: "dollar",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 1,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 1.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 2,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 3,
@@ -86,24 +86,24 @@ export const tipCategories: TipCategory[] = [
     category: "Food service",
     label: "Delivery",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 10,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 12,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 15,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 4,
@@ -114,24 +114,24 @@ export const tipCategories: TipCategory[] = [
     label: "Bartender",
     unit: "dollar",
     note: "per drink",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 1,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 1.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 2,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 5,
@@ -141,24 +141,24 @@ export const tipCategories: TipCategory[] = [
     category: "Personal care",
     label: "Haircut",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 15,
         ratingText: "Good",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "😊",
         value: 18,
         ratingText: "Great",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "🤩",
         value: 20,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 6,
@@ -168,24 +168,24 @@ export const tipCategories: TipCategory[] = [
     category: "Personal care",
     label: "Manicure/pedicure",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 15,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 18,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 20,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 7,
@@ -195,24 +195,24 @@ export const tipCategories: TipCategory[] = [
     category: "Personal care",
     label: "Massage",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 15,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 18,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 20,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 8,
@@ -222,24 +222,24 @@ export const tipCategories: TipCategory[] = [
     category: "Transportation",
     label: "Taxi",
     unit: "percentage",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 10,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 12,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 15,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 9,
@@ -250,24 +250,24 @@ export const tipCategories: TipCategory[] = [
     label: "Bellhop",
     unit: "dollar",
     note: "per bag",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 1,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 1.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 2,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 10,
@@ -278,24 +278,24 @@ export const tipCategories: TipCategory[] = [
     label: "Housekeeping",
     unit: "dollar",
     note: "per night",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 2,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 3.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 5,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 11,
@@ -305,24 +305,24 @@ export const tipCategories: TipCategory[] = [
     category: "Miscellaneous",
     label: "Coat check",
     unit: "dollar",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 1,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 1.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 2,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 12,
@@ -332,24 +332,24 @@ export const tipCategories: TipCategory[] = [
     category: "Miscellaneous",
     label: "Musician",
     unit: "dollar",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 1,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 3.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 5,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 13,
@@ -359,24 +359,24 @@ export const tipCategories: TipCategory[] = [
     category: "Miscellaneous",
     label: "Valet",
     unit: "dollar",
-    items: [
+    tip: [
       {
         rating: "🙂",
         value: 2,
         ratingText: "Good",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
       {
         rating: "😊",
         value: 3.5,
         ratingText: "Great",
-        isRecommendedAmount: true,
+        isSuggested: true,
       },
       {
         rating: "🤩",
         value: 5,
         ratingText: "Excellent",
-        isRecommendedAmount: false,
+        isSuggested: false,
       },
     ],
     id: 14,
