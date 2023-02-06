@@ -9,7 +9,7 @@ export function extractInitialTipCategorySubset(
   initialRecommendedTip: number;
 } {
   const foundCategory = tipCategories[index];
-  const itemWithRecommendedAmount = foundCategory.tip.find(
+  const itemWithRecommendedAmount = foundCategory.tips.find(
     (item) => item.isSuggested
   );
   return {

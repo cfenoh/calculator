@@ -1,8 +1,8 @@
 import React from "react";
 import TipForm from "../TipForm/TipForm";
-
 import { render, screen } from "../../setupTests";
-import tip from "../../components/Tips/Tip";
+import { fireEvent as userEvent } from "@testing-library/react";
+
 describe("Tip Form", () => {
   test("should render tip form with all fields initialized with their default values", () => {
     // Total (Tax included), Apply Tip before/after
@@ -19,7 +19,11 @@ describe("Tip Form", () => {
         name: "12",
       })
     ).toBeChecked();
-
+    expect(
+      screen.getByRole("checkbox", {
+        name: /shouldApplyTipBeforeTax/i,
+      })
+    ).not.toBeChecked();
     expect(
       screen.getByRole("listitem", {
         name: /tax/i,
@@ -34,13 +38,45 @@ describe("Tip Form", () => {
 
     expect(screen.getByTitle("total")).toHaveTextContent("0.00");
   });
+
   describe("By default", () => {
-    test(
-      "should render tip form with all fields initialized with their default values"
-    );
     describe("When user enter an amount", () => {
-      test("should not affect the total if amount is 0 or Not a number");
-      test("should update the total and total details(taxes, tips)");
+      test.skip("should not affect the total if amount is 0 or Not a number", () => {
+        render(<TipForm />);
+        userEvent.change(screen.getByLabelText(/price/i), {
+          target: { value: "0" },
+        });
+        expect(
+          screen.getByRole("listitem", {
+            name: /tax/i,
+          })
+        ).toHaveTextContent("0.00");
+
+        expect(
+          screen.getByRole("listitem", {
+            name: /tip/i,
+          })
+        ).toHaveTextContent("0.00");
+        expect(screen.getByTitle("total")).toHaveTextContent("0.00");
+      });
+      test("should update the total and total details(taxes, tips)", () => {
+        render(<TipForm />);
+        userEvent.change(screen.getByLabelText(/price/i), {
+          target: { value: "10" },
+        });
+        expect(
+          screen.getByRole("listitem", {
+            name: /tax/i,
+          })
+        ).toHaveTextContent("1.50");
+
+        expect(
+          screen.getByRole("listitem", {
+            name: /tip/i,
+          })
+        ).toHaveTextContent("1.38");
+        expect(screen.getByTitle("total")).toHaveTextContent("12.88");
+      });
     });
 
     describe("When user changes the language", () => {

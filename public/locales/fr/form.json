@@ -6,5 +6,6 @@
     "service": {
         "label": "sélectionnez un service"
     },
+    "shouldApplyTipBeforeTax": "Appliquer avant la taxe",
     "total": "total"
 }

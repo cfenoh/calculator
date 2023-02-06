@@ -11,7 +11,7 @@ export interface Service {
   transKey: string;
   unit: string;
   note?: string;
-  tip: Tip[];
+  tips: Tip[];
 }
 export type SelectableCategoriesProps = {
   id: Service["id"];

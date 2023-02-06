@@ -5,7 +5,7 @@ export const serviceList: Service[] = [
     category: "Food service",
     label: "Fast food",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 10,
@@ -32,7 +32,7 @@ export const serviceList: Service[] = [
     category: "Food service",
     label: "Sit-down restaurant",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 15,
@@ -59,7 +59,7 @@ export const serviceList: Service[] = [
     category: "Food service",
     label: "Coffee shop",
     unit: "dollar",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 1,
@@ -86,7 +86,7 @@ export const serviceList: Service[] = [
     category: "Food service",
     label: "Delivery",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 10,
@@ -114,7 +114,7 @@ export const serviceList: Service[] = [
     label: "Bartender",
     unit: "dollar",
     note: "per drink",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 1,
@@ -141,7 +141,7 @@ export const serviceList: Service[] = [
     category: "Personal care",
     label: "Haircut",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 15,
@@ -168,7 +168,7 @@ export const serviceList: Service[] = [
     category: "Personal care",
     label: "Manicure/pedicure",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 15,
@@ -195,7 +195,7 @@ export const serviceList: Service[] = [
     category: "Personal care",
     label: "Massage",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 15,
@@ -222,7 +222,7 @@ export const serviceList: Service[] = [
     category: "Transportation",
     label: "Taxi",
     unit: "percentage",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 10,
@@ -250,7 +250,7 @@ export const serviceList: Service[] = [
     label: "Bellhop",
     unit: "dollar",
     note: "per bag",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 1,
@@ -278,7 +278,7 @@ export const serviceList: Service[] = [
     label: "Housekeeping",
     unit: "dollar",
     note: "per night",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 2,
@@ -305,7 +305,7 @@ export const serviceList: Service[] = [
     category: "Miscellaneous",
     label: "Coat check",
     unit: "dollar",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 1,
@@ -332,7 +332,7 @@ export const serviceList: Service[] = [
     category: "Miscellaneous",
     label: "Musician",
     unit: "dollar",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 1,
@@ -359,7 +359,7 @@ export const serviceList: Service[] = [
     category: "Miscellaneous",
     label: "Valet",
     unit: "dollar",
-    tip: [
+    tips: [
       {
         rating: "🙂",
         value: 2,

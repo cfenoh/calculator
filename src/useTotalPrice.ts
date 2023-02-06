@@ -1,5 +1,5 @@
 import React from "react";
-import { TAX_BY_PROVINCES } from "./taxByProvinces";
+import { PROVINCES } from "./taxByProvinces";
 
 type PriceDetails = {
   total: string;
@@ -33,7 +33,7 @@ export const useTotalPrice = ({
 
   React.useEffect(() => {
     function getTaxRate(provinceId: number) {
-      const foundTax = TAX_BY_PROVINCES.find(
+      const foundTax = PROVINCES.find(
         (province) => province.id === Number(provinceId)
       );
       return !foundTax ? 1 : Number(foundTax.value) / 100;
@@ -42,6 +42,7 @@ export const useTotalPrice = ({
     const priceTaxExcluded = Number(basePrice) || 0;
 
     const taxRate = getTaxRate(provinceId);
+    console.log(taxRate, provinceId);
     const tax = priceTaxExcluded * taxRate;
 
     const totalTaxIncludedBeforeTip = priceTaxExcluded + tax;

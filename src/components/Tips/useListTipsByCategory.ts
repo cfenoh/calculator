@@ -9,10 +9,10 @@ export const useListTipsByCategory = ({
   categoryId: Service["id"];
 }) => {
   const [tips, setTips] = useState<{
-    tips: Service["tip"];
+    tips: Service["tips"];
     unit: string;
   }>(() => ({
-    tips: tipCategories[0].tip,
+    tips: tipCategories[0].tips,
     unit: tipCategories[0].unit,
   }));
 
@@ -26,7 +26,7 @@ export const useListTipsByCategory = ({
       return;
     }
     setTips({
-      tips: foundCategory.tip,
+      tips: foundCategory.tips,
       unit: foundCategory.unit,
     });
     setIsLoading(false);

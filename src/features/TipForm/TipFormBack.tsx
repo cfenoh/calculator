@@ -13,7 +13,7 @@ import {
   Row,
 } from "reactstrap";
 import { useTotalPrice } from "../../useTotalPrice";
-import { TAX_BY_PROVINCES } from "../../taxByProvinces";
+import { PROVINCES } from "../../taxByProvinces";
 import { FormState, FormTipReducer, useTipForm } from "../../useTipForm";
 import ProvinceSelector from "../../components/ProvinceSelector/ProvinceSelector";
 import CategoriesSelector from "../../components/CategoriesSelector/CategoriesSelector";
@@ -75,7 +75,7 @@ export default function TipFormBack() {
           ></h1>
           <ProvinceSelector
             onChange={handleChange}
-            provinces={TAX_BY_PROVINCES}
+            provinces={PROVINCES}
             defaultIndex={6}
           />
         </Col>
