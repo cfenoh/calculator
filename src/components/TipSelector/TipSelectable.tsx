@@ -1,10 +1,12 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Col, Input, InputGroup, InputGroupText, Label } from "reactstrap";
 import tip from "../Tips/Tip";
 import { _getTipUnitSymbol } from "../CategoriesSelector/helper";
 import { Tip } from "../../tips.const";
+import { register } from "numeral";
+import { useFormContext } from "react-hook-form";
 
-const TipSelector: React.FC<{
+const TipSelectable: React.FC<{
   tips: Tip[];
   unit: string;
   onChange: (event: SyntheticEvent<HTMLInputElement>) => void;
@@ -42,4 +44,4 @@ const TipSelector: React.FC<{
   );
 };
 
-export default TipSelector;
+export default TipSelectable;

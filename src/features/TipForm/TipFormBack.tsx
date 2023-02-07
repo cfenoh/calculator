@@ -13,7 +13,7 @@ import {
   Row,
 } from "reactstrap";
 import { useTotalPrice } from "../../useTotalPrice";
-import { PROVINCES } from "../../taxByProvinces";
+import { provinces } from "../../taxByProvinces";
 import { FormState, FormTipReducer, useTipForm } from "../../useTipForm";
 import ProvinceSelector from "../../components/ProvinceSelector/ProvinceSelector";
 import CategoriesSelector from "../../components/CategoriesSelector/CategoriesSelector";
@@ -21,7 +21,7 @@ import { useListTipsByCategory } from "../../components/Tips/useListTipsByCatego
 import { _getTipUnitSymbol } from "../../components/CategoriesSelector/helper";
 import tip from "../../components/Tips/Tip";
 import { serviceList } from "../../serviceList";
-import TipSelector from "../../components/TipSelector/TipSelector";
+import TipSelectable from "../../components/TipSelector/TipSelectable";
 
 export default function TipFormBack() {
   const initialValues: FormState = {
@@ -75,7 +75,7 @@ export default function TipFormBack() {
           ></h1>
           <ProvinceSelector
             onChange={handleChange}
-            provinces={PROVINCES}
+            provinces={provinces}
             defaultIndex={6}
           />
         </Col>
@@ -116,7 +116,7 @@ export default function TipFormBack() {
         <FormGroup>
           <Label htmlFor="tips">How was the service ?</Label>
           <Row xs={4} lg={5} className={"gy-2 mt-2"}>
-            <TipSelector
+            <TipSelectable
               tips={serviceTips}
               unit={unit}
               onChange={handleChange}

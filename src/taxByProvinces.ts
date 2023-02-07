@@ -4,7 +4,7 @@ export type Province = {
   value: number;
   shortName: string;
 };
-export const PROVINCES: Province[] = [
+export const provinces: Province[] = [
   {
     id: 1,
     name: "British Columbia",

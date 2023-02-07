@@ -10,12 +10,17 @@ import {
 } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import React from "react";
-import { SubmitHandler, useForm, useWatch } from "react-hook-form";
+import {
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { serviceList } from "../../serviceList";
-import { Service } from "../../tips.const";
+import { Service, Tip } from "../../tips.const";
 import tip from "../../components/Tips/Tip";
 import { useTotalPrice } from "../../useTotalPrice";
-import { PROVINCES } from "../../taxByProvinces";
+import { Province } from "../../taxByProvinces";
 type Inputs = {
   price: number;
   province: string;
@@ -23,7 +28,12 @@ type Inputs = {
   shouldApplyTipBeforeTax: boolean;
   tip: string;
 };
-function TipForm() {
+
+type TipFormProps = {
+  provinces: Province[];
+  services: Service[];
+};
+const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
   const { t } = useTranslation("form");
   const DEFAULT_SERVICE_ID = 1;
   const DEFAULT_PROVINCE_ID = 6;
@@ -32,6 +42,7 @@ function TipForm() {
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -42,7 +53,11 @@ function TipForm() {
       tip: getSuggestedTipByServiceId(DEFAULT_SERVICE_ID),
     },
   });
+  const serviceId = watch("service");
+  const tips = getTipsByServiceId(serviceId);
   const values = useWatch({ control });
+
+  const { fields } = useFieldArray({ control, name: "tip" });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   const {
@@ -56,17 +71,17 @@ function TipForm() {
     tipUnit: "percentage",
     shouldApplyTipOnBasePrice: !!values.shouldApplyTipBeforeTax,
   });
-  console.log(values.province);
+  //console.log(selectedTip);
   return (
     <Container className={"p-4"}>
       <Row>{t("heading")}</Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col>
-            <select {...register("province")}>
-              {PROVINCES.map((province) => (
+            <select {...register("province")} aria-label={"province"}>
+              {provinces.map((province) => (
                 <option value={province.id} key={province.id}>
-                  {province.name}
+                  {province.shortName}
                 </option>
               ))}
             </select>
@@ -75,14 +90,14 @@ function TipForm() {
         <Row>
           <Col>
             <Label htmlFor={"price"}>{t("price.label")}</Label>
-            <input type="number" id={"price"} {...register("price")} />
+            <input type="text" id={"price"} {...register("price")} />
           </Col>
         </Row>
         <Row>
           <Col>
             <Label htmlFor={"service"}>{t("service.label")}</Label>
             <select id={"service"} {...register("service")}>
-              {serviceList.map((service) => (
+              {services.map((service) => (
                 <option value={service.id} key={service.id}>
                   {service.label}
                 </option>
@@ -91,25 +106,30 @@ function TipForm() {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Label htmlFor={"tip-10"}>10</Label>
-            <input
-              type={"radio"}
-              id={"tip-10"}
-              value={"10"}
-              {...register("tip")}
-            />
-          </Col>
-          <Col>
-            <Label htmlFor={"tip-12"}>12</Label>
-            <input
-              type={"radio"}
-              id={"tip-12"}
-              value={"12"}
-              defaultChecked={true}
-              {...register("tip")}
-            />
-          </Col>
+          {fields.map((field, index) => (
+            <Col key={field.id}>
+              <Label htmlFor={`tip-${field.id}`}>{field.id}</Label>
+              <input
+                type={"radio"}
+                id={`tip-${field.id}`}
+                value={field.id}
+                {...register("tip")}
+                // defaultChecked={isSuggested}
+              />
+            </Col>
+          ))}
+          {/*{tips?.map(({ value, isSuggested }) => (*/}
+          {/*    <Col key={value}>*/}
+          {/*      <Label htmlFor={`tip-${value}`}>{value}</Label>*/}
+          {/*      <input*/}
+          {/*          type={"radio"}*/}
+          {/*          id={`tip-${value}`}*/}
+          {/*          value={value}*/}
+          {/*          {...register("tip")}*/}
+          {/*          defaultChecked={isSuggested}*/}
+          {/*      />*/}
+          {/*    </Col>*/}
+          {/*))}*/}
         </Row>
         <Row>
           <Col>
@@ -142,7 +162,7 @@ function TipForm() {
       </Row>
     </Container>
   );
-}
+};
 
 export default TipForm;
 
@@ -155,4 +175,8 @@ const getServiceById = (serviceId: string | number): Service => {
 const getSuggestedTipByServiceId = (serviceId: string | number) => {
   const foundService = getServiceById(serviceId);
   return foundService.tips.find((tip) => tip.isSuggested)?.value.toString();
+};
+const getTipsByServiceId = (serviceId: string | number): Tip[] => {
+  const foundService = getServiceById(serviceId);
+  return foundService.tips;
 };
