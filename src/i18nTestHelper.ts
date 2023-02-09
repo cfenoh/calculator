@@ -11,10 +11,6 @@ i18n.use(initReactI18next).init({
 
   debug: false,
 
-  interpolation: {
-    escapeValue: false, // not needed for react!!
-  },
-
   resources: { en: { translationsNS: {} } },
 });
 

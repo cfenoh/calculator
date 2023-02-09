@@ -2,6 +2,7 @@ import {
   Col,
   Container,
   Form,
+  FormGroup,
   Label,
   ListGroup,
   ListGroupItem,
@@ -76,65 +77,82 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row>
             <Col>
-              <select {...register("province")} aria-label={"province"}>
+              <select
+                {...register("province")}
+                aria-label={"province"}
+                className={"border-0 text-success text-uppercase"}
+              >
                 {provinces.map((province) => (
-                  <option value={province.id} key={province.id}>
+                  <option
+                    value={province.id}
+                    key={province.id}
+                    className={"text-uppercase"}
+                  >
                     {province.shortName}
                   </option>
                 ))}
               </select>
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <Label htmlFor={"price"}>{t("price.label")}</Label>
-              <input type="text" id={"price"} {...register("price")} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Label htmlFor={"service"}>{t("service.label")}</Label>
-              <select id={"service"} {...register("service")}>
-                {services.map((service) => (
-                  <option value={service.id} key={service.id}>
-                    {service.label}
-                  </option>
-                ))}
-              </select>
-            </Col>
-          </Row>
+          <FormGroup>
+            <Label htmlFor={"price"}>{t("price.label")}</Label>
+            <input type="text" id={"price"} {...register("price")} />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor={"service"}>{t("service.label")}</Label>
+            <select
+              id={"service"}
+              {...register("service")}
+              className={"text-capitalize"}
+            >
+              {services.map((service) => (
+                <option
+                  value={service.id}
+                  key={service.id}
+                  className={"text-uppercase"}
+                >
+                  {service.label}
+                </option>
+              ))}
+            </select>
+          </FormGroup>
           <Row>
             <NestedTipSelector serviceId={serviceId} />
           </Row>
-          <Row>
-            <Col>
-              <Label htmlFor={"shouldApplyTipBeforeTax"}>
-                {t("shouldApplyTipBeforeTax")}
-              </Label>
-              <input
-                type={"checkbox"}
-                id={"shouldApplyTipBeforeTax"}
-                {...register("shouldApplyTipBeforeTax")}
-              />
-            </Col>
-          </Row>
+
+          <FormGroup>
+            <Label check htmlFor={"shouldApplyTipBeforeTax"}>
+              {t("shouldApplyTipBeforeTax")}
+            </Label>
+            <input
+              type={"checkbox"}
+              className={"input-checkbox me-3"}
+              id={"shouldApplyTipBeforeTax"}
+              {...register("shouldApplyTipBeforeTax")}
+            />
+          </FormGroup>
         </Form>
       </FormProvider>
-
-      <Row>
-        <Col>
-          <ListGroup>
-            <ListGroupItem title={"tax"}>{provinceTax.amount}</ListGroupItem>
-            <ListGroupItem title={"tip"}>{computedTip}</ListGroupItem>
-          </ListGroup>
+      <ListGroup flush className={"mt-1 border-dotted pt-3 fw-normal"}>
+        <ListGroupItem
+          title={"tax"}
+          className={"border-0 d-flex justify-content-between"}
+        >
+          <span className={"fs-6"}>{provinceTax.amount}</span>
+        </ListGroupItem>
+        <ListGroupItem
+          title={"tip"}
+          className={"border-0 d-flex justify-content-between"}
+        >
+          <span className={"fs-6"}>{computedTip}</span>
+        </ListGroupItem>
+      </ListGroup>
+      <Row className={"total-result mt-1 align-items-center rounded"}>
+        <Col className={"col-xs-2"}>
+          {t("total")} <span className={"text-muted fs-0"}>incl. taxes</span>
         </Col>
-      </Row>
-      <Row>
-        <Col>
-          <span>{t("total")} :</span>
-          <span title={"total"} id={"some"}>
-            {total}
-          </span>
+        <Col className={"text-end fs-1"} title={"total"}>
+          {total}
         </Col>
       </Row>
     </Container>

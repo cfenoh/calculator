@@ -295,6 +295,24 @@ describe("Tip Form", () => {
       });
     });
 
+    test("user should be able to customize tip amount then total is updated");
+    test(
+      "should clear price input when user types if the current field value is 0"
+    );
+    test("should allow only number in price field");
+
+    describe("when tip unit is a percentage", () => {
+      test(
+        "should display the unit in the tip label and apply the right percentage"
+      );
+    });
+
+    describe("when tip unit is a currency", () => {
+      test(
+        "should display the unit in the tip label and add the tip amount to the total"
+      );
+    });
+
     describe("When user changes the language", () => {
       test("the content language changes");
     });

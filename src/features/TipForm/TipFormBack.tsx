@@ -184,7 +184,6 @@ export default function TipFormBack() {
         <Col className={"col-xs-2"}>
           Total <span className={"text-muted fs-0"}>incl. taxes</span>
         </Col>
-        <Col className={"text-end fs-1"}>{total}</Col>
       </Row>
     </Container>
   );
