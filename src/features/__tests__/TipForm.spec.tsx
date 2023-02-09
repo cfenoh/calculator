@@ -76,7 +76,18 @@ const services = [
 ];
 describe("Tip Form", () => {
   beforeEach(() => {
+    vi.mock("react-i18next", () => {
+      return {
+        useTranslation: () => ({
+          t: vi.fn().mockImplementation((key) => key),
+        }),
+      };
+    });
     render(<TipForm services={services} provinces={provinces} />);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
   test("should render tip form with all fields initialized with their default values", () => {
     expect(screen.getByText(/heading/i)).toBeInTheDocument();
@@ -172,6 +183,11 @@ describe("Tip Form", () => {
           })
         ).toHaveTextContent("1.36");
         expect(screen.getByTitle("total")).toHaveTextContent("12.66");
+        expect(
+          screen.getByRole("checkbox", {
+            name: /shouldApplyTipBeforeTax/i,
+          })
+        ).not.toBeChecked();
       });
     });
 
@@ -206,13 +222,77 @@ describe("Tip Form", () => {
           })
         ).toHaveTextContent("2.07");
         expect(screen.getByTitle("total")).toHaveTextContent("13.57");
+        expect(
+          screen.getByRole("checkbox", {
+            name: /shouldApplyTipBeforeTax/i,
+          })
+        ).not.toBeChecked();
       });
     });
-    describe("When user ask for applying tip before taxes", () => {
-      test("the total is updated based on user selection");
-    });
     describe("When user ask for applying tip after taxes", () => {
-      test("the total is updated based on user selection");
+      test("the total is updated based on user selection", async () => {
+        fireEvent.change(screen.getByLabelText(/price.label/i), {
+          target: { value: 12 },
+        });
+        expect(screen.getByTitle("total")).toHaveTextContent("15.45");
+
+        await userEvent.selectOptions(
+          screen.getByRole("combobox", { name: /service/i }),
+          screen.getByRole("option", { name: /Sit-down restaurant/i })
+        );
+        expect(
+          screen.getByRole("combobox", { name: /service/i })
+        ).toHaveDisplayValue("Sit-down restaurant");
+
+        expect(screen.getByRole("radio", { name: /15/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /18/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /18/i })).toBeChecked();
+        expect(screen.getByRole("radio", { name: /20/i })).toBeInTheDocument();
+
+        await userEvent.selectOptions(
+          screen.getByRole("combobox", { name: /service/i }),
+          screen.getByRole("option", { name: /Fast food/i })
+        );
+        expect(
+          screen.getByRole("combobox", { name: /service/i })
+        ).toHaveDisplayValue("Fast food");
+
+        expect(screen.getByRole("radio", { name: /10/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /12/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /12/i })).toBeChecked();
+        expect(screen.getByRole("radio", { name: /15/i })).toBeInTheDocument();
+
+        await userEvent.click(screen.getByRole("radio", { name: /15/i }));
+        expect(
+          screen.getByRole("listitem", {
+            name: /tax/i,
+          })
+        ).toHaveTextContent("1.80");
+
+        expect(
+          screen.getByRole("listitem", {
+            name: /tip/i,
+          })
+        ).toHaveTextContent("2.07");
+        expect(screen.getByTitle("total")).toHaveTextContent("15.87");
+
+        await userEvent.click(
+          screen.getByRole("checkbox", {
+            name: /shouldApplyTipBeforeTax/i,
+          })
+        );
+        expect(
+          screen.getByRole("checkbox", {
+            name: /shouldApplyTipBeforeTax/i,
+          })
+        ).toBeChecked();
+        expect(
+          screen.getByRole("listitem", {
+            name: /tip/i,
+          })
+        ).toHaveTextContent("1.80");
+        expect(screen.getByTitle("total")).toHaveTextContent("15.60");
+      });
     });
 
     describe("When user changes the language", () => {
