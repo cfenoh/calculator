@@ -1,5 +1,13 @@
 {
-
-    "heading": "Welcome to TipSmart"
-
+  "heading": "Welcome to TipSmart",
+  "price": {
+    "label": "Price"
+  },
+  "service": {
+    "label": "select a service"
+  },
+  "shouldApplyTipBeforeTax": "Apply tip before taxes",
+  "total": "total",
+  "tip": "Tip",
+  "taxes": "Taxes"
 }

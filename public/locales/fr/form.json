@@ -1,11 +1,14 @@
 {
-    "heading": "TipSmart",
-    "price": {
-        "label": "Prix"
-    },
-    "service": {
-        "label": "sélectionnez un service"
-    },
-    "shouldApplyTipBeforeTax": "Appliquer avant la taxe",
-    "total": "total"
+  "heading": "TipSmart",
+  "price": {
+    "label": "Prix"
+  },
+  "service": {
+    "label": "sélectionnez un service"
+  },
+  "shouldApplyTipBeforeTax": "Appliquer avant la taxe",
+  "total": "total",
+  "tip": "pourboire",
+  "taxes": "Taxes"
+
 }

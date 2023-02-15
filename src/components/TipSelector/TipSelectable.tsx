@@ -3,7 +3,6 @@ import { Col, Input, InputGroup, InputGroupText, Label } from "reactstrap";
 import tip from "../Tips/Tip";
 import { _getTipUnitSymbol } from "../CategoriesSelector/helper";
 import { Service, Tip } from "../../tips.const";
-import { register, reset } from "numeral";
 import { Controller, useFormContext } from "react-hook-form";
 import { serviceList } from "../../serviceList";
 
@@ -50,21 +49,29 @@ export default TipSelectable;
 export const NestedTipSelector: React.FC<{ serviceId: string }> = ({
   serviceId,
 }) => {
-  const { setValue, control } = useFormContext();
+  const { setValue, control, watch } = useFormContext();
   const tips = getTipsByServiceId(serviceId);
   const suggestedTip = React.useMemo(
     () => tips.find((tip) => tip.isSuggested),
     [tips]
   );
 
+  const handleCustomTipChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const inputValue = event.target.value;
+    setValue("tip", "" + Number(inputValue));
+  };
   React.useEffect(() => {
     if (!suggestedTip) return;
     setValue("tip", suggestedTip.value);
+    setValue("tipUnit", suggestedTip.unit);
   }, [suggestedTip]);
 
+  const tipValue = watch("tip");
   return (
     <fieldset>
-      {tips.map(({ value, isSuggested }) => (
+      {tips.map(({ value, isSuggested, unit }) => (
         <Controller
           control={control}
           name={"tip"}
@@ -73,11 +80,13 @@ export const NestedTipSelector: React.FC<{ serviceId: string }> = ({
           render={({ field }) => {
             return (
               <Col>
-                <label htmlFor={`tip-${value}`}>{value}</label>
+                <label htmlFor={`tip-${value}`}>
+                  {value} <span>{_getTipUnitSymbol(unit)}</span>
+                </label>
                 <input
                   type={"radio"}
                   id={`tip-${value}`}
-                  defaultChecked={isSuggested}
+                  checked={value === Number(tipValue)}
                   {...field}
                   value={value}
                 />
@@ -86,6 +95,36 @@ export const NestedTipSelector: React.FC<{ serviceId: string }> = ({
           }}
         />
       ))}
+      <Col>
+        <Controller
+          control={control}
+          name={"tip"}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <InputGroup>
+              <Input
+                type={"number"}
+                name={"tip"}
+                value={field.value}
+                aria-label={"custom-tip"}
+                id={"custom-tip"}
+                className={
+                  "tip-radio-label rounded-start-1 placeholder-fst-italic"
+                }
+                onKeyDown={(e) =>
+                  ["e", "E", "+", "-", "."].includes(e.key) &&
+                  e.preventDefault()
+                }
+                placeholder={"Ex:20"}
+                onChange={handleCustomTipChange}
+              />
+              <InputGroupText>
+                {_getTipUnitSymbol(suggestedTip?.unit)}
+              </InputGroupText>
+            </InputGroup>
+          )}
+        />
+      </Col>
     </fieldset>
   );
 };

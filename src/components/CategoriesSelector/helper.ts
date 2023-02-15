@@ -28,11 +28,10 @@ export const Categories: SelectableCategoriesProps = serviceList.map(
   })
 );
 
-export const _getTipUnitSymbol = (tipUnit: Service["unit"]): string => {
-  return (
-    {
-      percentage: "%",
-      dollar: "$",
-    }[tipUnit] || tipUnit
-  );
+export const _getTipUnitSymbol = (tipUnit?: Service["unit"]): string => {
+  const UNIT_TO_SYMBOL: Record<Service["unit"], string> = {
+    percentage: "%",
+    dollar: "$",
+  } as const;
+  return tipUnit ? UNIT_TO_SYMBOL[tipUnit] : UNIT_TO_SYMBOL.percentage;
 };

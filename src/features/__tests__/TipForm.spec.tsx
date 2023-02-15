@@ -29,18 +29,21 @@ const services = [
         value: 10,
         ratingText: "Good",
         isSuggested: false,
+        unit: "percentage",
       },
       {
         rating: "😊",
         value: 12,
         ratingText: "Great",
         isSuggested: true,
+        unit: "percentage",
       },
       {
         rating: "🤩",
         value: 15,
         ratingText: "Excellent",
         isSuggested: false,
+        unit: "percentage",
       },
     ],
     id: 1,
@@ -48,30 +51,33 @@ const services = [
   },
   {
     category: "Food service",
-    label: "Sit-down restaurant",
-    unit: "percentage",
+    label: "Coffee shop",
+    unit: "dollar",
     tips: [
       {
         rating: "🙂",
-        value: 15,
+        value: 1,
         ratingText: "Good",
         isSuggested: false,
+        unit: "dollar",
       },
       {
         rating: "😊",
-        value: 18,
+        value: 1.5,
         ratingText: "Great",
         isSuggested: true,
+        unit: "dollar",
       },
       {
         rating: "🤩",
-        value: 20,
+        value: 2,
         ratingText: "Excellent",
         isSuggested: false,
+        unit: "dollar",
       },
     ],
-    id: 2,
-    transKey: "sit-down-restaurant",
+    id: 3,
+    transKey: "coffee-shop",
   },
 ];
 describe("Tip Form", () => {
@@ -141,7 +147,7 @@ describe("Tip Form", () => {
       test("should update the total and total details(taxes, tips)", () => {
         const priceInput = screen.getByLabelText(/price.label/i);
 
-        fireEvent.change(priceInput, { target: { value: "10" } });
+        fireEvent.change(priceInput, { target: { value: 10 } });
         expect(priceInput).toHaveValue("10");
         expect(
           screen.getByRole("listitem", {
@@ -169,7 +175,7 @@ describe("Tip Form", () => {
         ).toHaveDisplayValue("ON");
 
         const priceInput = screen.getByLabelText(/price.label/i);
-        fireEvent.change(priceInput, { target: { value: 10 } });
+        fireEvent.change(priceInput, { target: { value: "10" } });
 
         expect(
           screen.getByRole("listitem", {
@@ -200,28 +206,24 @@ describe("Tip Form", () => {
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service/i }),
-          screen.getByRole("option", { name: /Sit-down restaurant/i })
+          screen.getByRole("option", { name: /Coffee shop/i })
         );
         expect(
           screen.getByRole("combobox", { name: /service/i })
-        ).toHaveDisplayValue("Sit-down restaurant");
+        ).toHaveDisplayValue("Coffee shop");
 
-        expect(screen.getByRole("radio", { name: /15/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /18/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /18/i })).toBeChecked();
-        expect(screen.getByRole("radio", { name: /20/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: "1 $" })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /1.5/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /1.5/i })).toBeChecked();
+        expect(screen.getByRole("radio", { name: /2/i })).toBeInTheDocument();
         expect(
           screen.getByRole("listitem", {
             name: /tax/i,
           })
         ).toHaveTextContent("1.50");
 
-        expect(
-          screen.getByRole("listitem", {
-            name: /tip/i,
-          })
-        ).toHaveTextContent("2.07");
-        expect(screen.getByTitle("total")).toHaveTextContent("13.57");
+        expect(screen.getByTitle("computed-tip")).toHaveTextContent("1.5");
+        expect(screen.getByTitle("total")).toHaveTextContent("13");
         expect(
           screen.getByRole("checkbox", {
             name: /shouldApplyTipBeforeTax/i,
@@ -238,16 +240,16 @@ describe("Tip Form", () => {
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service/i }),
-          screen.getByRole("option", { name: /Sit-down restaurant/i })
+          screen.getByRole("option", { name: /Coffee shop/i })
         );
         expect(
           screen.getByRole("combobox", { name: /service/i })
-        ).toHaveDisplayValue("Sit-down restaurant");
+        ).toHaveDisplayValue("Coffee shop");
 
-        expect(screen.getByRole("radio", { name: /15/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /18/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /18/i })).toBeChecked();
-        expect(screen.getByRole("radio", { name: /20/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: "1 $" })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /1.5/i })).toBeInTheDocument();
+        expect(screen.getByRole("radio", { name: /1.5/i })).toBeChecked();
+        expect(screen.getByRole("radio", { name: /2/i })).toBeInTheDocument();
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service/i }),
@@ -295,22 +297,81 @@ describe("Tip Form", () => {
       });
     });
 
-    test("user should be able to customize tip amount then total is updated");
-    test(
-      "should clear price input when user types if the current field value is 0"
-    );
-    test("should allow only number in price field");
+    test("should allow only number in price field", () => {
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "abcd" },
+      });
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("0");
+
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "e" },
+      });
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("0");
+
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: 12.9 },
+      });
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("12.9");
+
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "12,9" },
+      });
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("12.9");
+    });
+
+    test("should clear price input when user types if the current field value is 0", () => {
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "019" },
+      });
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("19");
+    });
+
+    test("user should be able see the taxes amount and percentage", () => {
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "019" },
+      });
+
+      expect(screen.getByTitle("tax-amount")).toBeInTheDocument();
+      expect(screen.getByTitle("tax-amount")).toHaveTextContent("2.85");
+
+      expect(screen.getByTitle("province-taxes")).toBeInTheDocument();
+      expect(screen.getByTitle("province-taxes")).toHaveTextContent("(14.97%)");
+    });
+
+    test("user should be able to customize tip amount then total is updated", () => {
+      fireEvent.change(screen.getByLabelText(/price.label/i), {
+        target: { value: "019" },
+      });
+
+      fireEvent.change(screen.getByRole("spinbutton", { name: "custom-tip" }), {
+        target: { value: "09" },
+      });
+      expect(screen.getByTitle("total")).toHaveTextContent("23.81");
+    });
 
     describe("when tip unit is a percentage", () => {
-      test(
-        "should display the unit in the tip label and apply the right percentage"
-      );
+      test("should display the unit in the tip label and apply the right percentage", () => {
+        fireEvent.change(screen.getByLabelText(/price.label/i), {
+          target: { value: "010" },
+        });
+
+        expect(screen.getByTitle("chosen-tip")).toBeInTheDocument();
+        expect(screen.getByTitle("chosen-tip")).toHaveTextContent(/12 %/i);
+      });
     });
 
     describe("when tip unit is a currency", () => {
-      test(
-        "should display the unit in the tip label and add the tip amount to the total"
-      );
+      test("should display the unit in the tip label and add the tip amount to the total", async () => {
+        fireEvent.change(screen.getByLabelText(/price.label/i), {
+          target: { value: "010" },
+        });
+        await userEvent.selectOptions(
+          screen.getByRole("combobox", { name: /service/i }),
+          screen.getByRole("option", { name: /Coffee shop/i })
+        );
+        expect(screen.getByTitle("chosen-tip")).toBeInTheDocument();
+        expect(screen.getByTitle("chosen-tip")).toHaveTextContent("(1.5 $)");
+      });
     });
 
     describe("When user changes the language", () => {

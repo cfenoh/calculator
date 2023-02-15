@@ -3,6 +3,7 @@ import {
   Container,
   Form,
   FormGroup,
+  Input,
   Label,
   ListGroup,
   ListGroupItem,
@@ -11,6 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import React from "react";
 import {
+  Controller,
   FormProvider,
   SubmitHandler,
   useForm,
@@ -22,12 +24,14 @@ import tip from "../../components/Tips/Tip";
 import { useTotalPrice } from "../../useTotalPrice";
 import { Province } from "../../taxByProvinces";
 import { NestedTipSelector } from "../../components/TipSelector/TipSelectable";
+import { _getTipUnitSymbol } from "../../components/CategoriesSelector/helper";
 type Inputs = {
   price: number;
   province: string;
   service: string;
   shouldApplyTipBeforeTax: boolean;
   tip: string;
+  tipUnit: string;
 };
 
 type TipFormProps = {
@@ -44,6 +48,7 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
       province: DEFAULT_PROVINCE_ID.toString(),
       service: DEFAULT_SERVICE_ID.toString(),
       shouldApplyTipBeforeTax: false,
+      tipUnit: getServiceById(DEFAULT_SERVICE_ID)?.unit,
       tip: getSuggestedTipByServiceId(DEFAULT_SERVICE_ID),
     },
   });
@@ -57,7 +62,6 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
   const serviceId = watch("service");
   const values = useWatch({ control });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
   const {
     total,
     tip: computedTip,
@@ -66,10 +70,9 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
     basePrice: Number(values.price),
     provinceId: Number(values.province) || 1,
     tipRate: Number(values.tip) || 0,
-    tipUnit: "percentage",
+    tipUnit: values.tipUnit || "percentage",
     shouldApplyTipOnBasePrice: !!values.shouldApplyTipBeforeTax,
   });
-
   return (
     <Container className={"p-4"}>
       <Row>{t("heading")}</Row>
@@ -95,8 +98,51 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
             </Col>
           </Row>
           <FormGroup>
-            <Label htmlFor={"price"}>{t("price.label")}</Label>
-            <input type="text" id={"price"} {...register("price")} />
+            <Controller
+              control={control}
+              name={"price"}
+              rules={{ required: true }}
+              render={({ field }) => {
+                return (
+                  <>
+                    <Label for="price">
+                      {t("price.label")}
+                      <span className={"fs-0 text-muted ms-0 fst-italic"}>
+                        (excl. taxes)
+                      </span>
+                    </Label>
+                    <Input
+                      value={
+                        field.value
+                          .toString()
+                          .replace(",", ".")
+                          .replace(/[^\d.]/g, "")
+                          .replace(/\.{2,}/g, "")
+                          .replace(/^0+/, "") || 0
+                      }
+                      name={"price"}
+                      id={"price"}
+                      onBlur={field.onBlur}
+                      onKeyDown={(e) => {
+                        return (
+                          ["e", "E", "+", "-"].includes(e.key) &&
+                          e.preventDefault()
+                        );
+                      }}
+                      // onChange={(e) =>
+                      //   handlePriceInputChange(e, field.onChange)
+                      // }
+                      onChange={field.onChange}
+                      type={"text"}
+                      //pattern="[0-9.]+"
+                      className={"form-base-input rounded-1"}
+                    />
+                  </>
+                );
+              }}
+            />
+            {/*<Label htmlFor={"price"}>{t("price.label")}</Label>*/}
+            {/*<input type="text" id={"price"} {...register("price")} />*/}
           </FormGroup>
           <FormGroup>
             <Label htmlFor={"service"}>{t("service.label")}</Label>
@@ -138,13 +184,31 @@ const TipForm: React.FC<TipFormProps> = ({ provinces, services }) => {
           title={"tax"}
           className={"border-0 d-flex justify-content-between"}
         >
-          <span className={"fs-6"}>{provinceTax.amount}</span>
+          <span>
+            Taxes{" "}
+            <span className={"fs-0 text-muted ms-1"} title={"province-taxes"}>
+              ({provinceTax.percentage}%)
+            </span>
+          </span>
+          <span className={"fs-6"} title={"tax-amount"}>
+            {provinceTax.amount}
+          </span>
         </ListGroupItem>
         <ListGroupItem
           title={"tip"}
           className={"border-0 d-flex justify-content-between"}
         >
-          <span className={"fs-6"}>{computedTip}</span>
+          <span>
+            {t("tip")}
+            <span className={"fs-0 text-muted ms-1"} title={"chosen-tip"}>
+              <>
+                ({values.tip} {_getTipUnitSymbol(values.tipUnit)})
+              </>
+            </span>
+          </span>
+          <span className={"fs-6"} title={"computed-tip"}>
+            {computedTip}
+          </span>
         </ListGroupItem>
       </ListGroup>
       <Row className={"total-result mt-1 align-items-center rounded"}>

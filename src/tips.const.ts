@@ -3,6 +3,7 @@ export type Tip = {
   value: number;
   ratingText: string;
   isSuggested: boolean;
+  unit: string;
 };
 export interface Service {
   id: number;
