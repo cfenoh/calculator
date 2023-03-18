@@ -1,18 +1,14 @@
 import React from "react";
 import { Input } from "reactstrap";
 import { Province } from "../../taxByProvinces";
+import { useField } from "formik";
 
 type ProvinceSelectorProps = {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   provinces: Province[];
-
-  defaultIndex: number;
 };
-const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({
-  provinces,
-  onChange,
-  defaultIndex = 6,
-}) => {
+const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ provinces }) => {
+  const [field] = useField("provinceId");
+
   return (
     <div className={"mb-0 me-1"}>
       <label htmlFor={"provinceId"} aria-hidden={true} hidden={true}>
@@ -21,11 +17,10 @@ const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({
       <Input
         type={"select"}
         id={"provinceId"}
-        name={"provinceId"}
         role={"combobox"}
-        onChange={onChange}
+        aria-label={"provinceId"}
         className={"border-0 text-success text-uppercase"}
-        defaultValue={defaultIndex}
+        {...field}
       >
         {provinces.map(({ shortName, id }) => (
           <option key={id} value={id} className={"text-uppercase"}>

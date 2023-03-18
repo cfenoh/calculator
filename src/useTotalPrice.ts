@@ -9,19 +9,20 @@ type PriceDetails = {
   };
   tip: string;
 };
+export type TipComputationProps = {
+  basePrice: number | string;
+  provinceId: number;
+  tipRate: number | string;
+  tipUnit: string;
+  shouldApplyTipOnBasePrice: boolean;
+};
 export const useTotalPrice = ({
   basePrice,
   provinceId,
   tipRate,
   tipUnit,
   shouldApplyTipOnBasePrice,
-}: {
-  basePrice: number | string;
-  provinceId: number;
-  tipRate: number | string;
-  tipUnit: string;
-  shouldApplyTipOnBasePrice: boolean;
-}): PriceDetails => {
+}: TipComputationProps): PriceDetails => {
   const [priceDetails, setPriceDetails] = React.useState<PriceDetails>({
     total: "0",
     tax: {

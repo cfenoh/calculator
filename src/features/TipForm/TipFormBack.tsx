@@ -16,12 +16,12 @@ import { useTotalPrice } from "../../useTotalPrice";
 import { provinces } from "../../taxByProvinces";
 import { FormState, FormTipReducer, useTipForm } from "../../useTipForm";
 import ProvinceSelector from "../../components/ProvinceSelector/ProvinceSelector";
-import CategoriesSelector from "../../components/CategoriesSelector/CategoriesSelector";
+import ServiceSelector from "../../components/CategoriesSelector/ServiceSelector";
 import { useListTipsByCategory } from "../../components/Tips/useListTipsByCategory";
 import { _getTipUnitSymbol } from "../../components/CategoriesSelector/helper";
 import tip from "../../components/Tips/Tip";
 import { serviceList } from "../../serviceList";
-import TipSelectable from "../../components/TipSelector/TipSelectable";
+import TipSelectable from "../../components/TipSelector/TipSelector";
 
 export default function TipFormBack() {
   const initialValues: FormState = {
@@ -106,10 +106,7 @@ export default function TipFormBack() {
         <FormGroup>
           <Row>
             <Col>
-              <CategoriesSelector
-                categories={serviceList}
-                onChange={handleChange}
-              />
+              <ServiceSelector services={serviceList} onChange={handleChange} />
             </Col>
           </Row>
         </FormGroup>

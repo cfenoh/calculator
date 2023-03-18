@@ -19,6 +19,13 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.max-width-450{
+  max-width: 450px;
+  width: 100%;
+}
+.margin-auto{
+  margin: 0 auto;
+}
 .form-base-input {
   border-color: var(--bs-gray-400) !important;
   padding: 10px 8px 10px 14px !important;
@@ -99,4 +106,8 @@ select {
   font-size: 14px !important;
   line-height: 19px !important;
   height: 48px;
+}
+
+.fs-7{
+  font-size: 13px;
 }

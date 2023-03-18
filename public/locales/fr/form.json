@@ -4,11 +4,14 @@
     "label": "Prix"
   },
   "service": {
-    "label": "sélectionnez un service"
+    "label": "Sélectionnez un service"
   },
-  "shouldApplyTipBeforeTax": "Appliquer avant la taxe",
-  "total": "total",
-  "tip": "pourboire",
+  "shouldApplyTipBeforeTax": "Pourboire avant Taxes?",
+  "total": "Total",
+  "tip": {
+    "label": "Choisissez un pourboire",
+    "computed": "Pourboire",
+    "beforeTax": "Pourboire avant Taxes (non inclus)"
+  },
   "taxes": "Taxes"
-
 }
