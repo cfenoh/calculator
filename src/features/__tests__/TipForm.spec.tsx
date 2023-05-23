@@ -143,12 +143,12 @@ describe("Tip Form", () => {
         });
       });
     });
-    describe.skip("When user ask for applying tip after taxes", () => {
+    describe("When user ask for applying tip after taxes", () => {
       test("the total is updated based on user selection", async () => {
         fireEvent.change(screen.getByLabelText(/price.label/i), {
           target: { value: 12 },
         });
-        expect(screen.getByTitle("total")).toHaveTextContent("15.45");
+        expect(screen.getByTitle("total")).toHaveTextContent("15.19");
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
@@ -158,10 +158,14 @@ describe("Tip Form", () => {
           screen.getByRole("combobox", { name: /service.label/i })
         ).toHaveDisplayValue("Coffee shop");
 
-        expect(screen.getByRole("radio", { name: "1 $" })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /1.5/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /1.5/i })).toBeChecked();
-        expect(screen.getByRole("radio", { name: /2/i })).toBeInTheDocument();
+        expect(
+          screen.getByRole("button", { name: /1 \$/i })
+        ).toBeInTheDocument();
+        expect(
+          screen.getByRole("button", { name: /1.5/i })
+        ).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /1.5/i })).toBeActive();
+        expect(screen.getByRole("button", { name: /2/i })).toBeInTheDocument();
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
@@ -171,24 +175,16 @@ describe("Tip Form", () => {
           screen.getByRole("combobox", { name: /service.label/i })
         ).toHaveDisplayValue("Fast food");
 
-        expect(screen.getByRole("radio", { name: /10/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /12/i })).toBeInTheDocument();
-        expect(screen.getByRole("radio", { name: /12/i })).toBeChecked();
-        expect(screen.getByRole("radio", { name: /15/i })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /10/i })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /12/i })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /12/i })).toBeActive();
+        expect(screen.getByRole("button", { name: /15/i })).toBeInTheDocument();
 
-        await userEvent.click(screen.getByRole("radio", { name: /15/i }));
-        expect(
-          screen.getByRole("listitem", {
-            name: /tax/i,
-          })
-        ).toHaveTextContent("1.80");
+        await userEvent.click(screen.getByRole("button", { name: /15/i }));
+        expect(getTaxAmount()).toHaveTextContent("1.56");
 
-        expect(
-          screen.getByRole("listitem", {
-            name: /tip/i,
-          })
-        ).toHaveTextContent("2.07");
-        expect(screen.getByTitle("total")).toHaveTextContent("15.87");
+        expect(getTipAmount()).toHaveTextContent("2.03");
+        expect(screen.getByTitle("total")).toHaveTextContent("15.59");
 
         await userEvent.click(
           screen.getByRole("checkbox", {
@@ -200,12 +196,8 @@ describe("Tip Form", () => {
             name: /shouldApplyTipBeforeTax/i,
           })
         ).toBeChecked();
-        expect(
-          screen.getByRole("listitem", {
-            name: /tip/i,
-          })
-        ).toHaveTextContent("1.80");
-        expect(screen.getByTitle("total")).toHaveTextContent("15.60");
+        expect(getTipAmount()).toHaveTextContent("1.80");
+        expect(screen.getByTitle("total")).toHaveTextContent("15.36");
       });
     });
 
