@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Col, FormGroup, Label, Row } from "reactstrap";
+import {
+  Button,
+  Col,
+  Collapse,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 import tip from "../Tips/Tip";
 import {
   _getTipUnitSymbol,
@@ -56,6 +64,8 @@ export const TipSelector: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<Inputs>();
   const [tipField] = useField("tip");
   const tips = getTipsByServiceId(values.serviceId);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   React.useEffect(() => {
     if (!tips) return;
@@ -78,6 +88,24 @@ export const TipSelector: React.FC = () => {
               tipUnit={unit}
             />
           ))}
+        </Row>
+        <Row className={"p-1"}>
+          <Button
+            onClick={toggle}
+            color={"link"}
+            outline
+            className={"text-start border-0 text-success"}
+          >
+            Customize {isOpen ? <>&uarr;</> : <>&darr;</>}
+          </Button>
+
+          <Collapse isOpen={isOpen}>
+            <Input
+              {...tipField}
+              className={"w-100 py-3"}
+              data-testid={"custom-tip"}
+            />
+          </Collapse>
         </Row>
       </FormGroup>
     </fieldset>

@@ -242,15 +242,15 @@ describe("Tip Form", () => {
       expect(screen.getByTitle("province-taxes")).toHaveTextContent("(13.00%)");
     });
 
-    test.skip("user should be able to customize tip amount then total is updated", () => {
+    test("user should be able to customize tip amount then total is updated", () => {
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: "019" },
       });
 
-      fireEvent.change(screen.getByRole("spinbutton", { name: "custom-tip" }), {
+      fireEvent.change(screen.getByTestId("custom-tip"), {
         target: { value: "09" },
       });
-      expect(screen.getByTitle("total")).toHaveTextContent("23.81");
+      expect(screen.getByTitle("total")).toHaveTextContent("23.40");
     });
 
     describe("when tip unit is a percentage", () => {
