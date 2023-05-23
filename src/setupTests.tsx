@@ -1,6 +1,7 @@
 /* eslint-disable import/export */
 import React from "react";
 import { render } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18nTestHelper";
 
@@ -17,6 +18,17 @@ const customRender = (ui: React.ReactElement, options = {}) =>
     wrapper: Providers,
     ...options,
   });
+
+expect.extend({
+  toBeActive(received) {
+    const { isNot } = this;
+    return {
+      pass: received.classList.contains("active"),
+      message: () => `${received} is${isNot ? " not" : ""} active`,
+    };
+  },
+});
+
 import "@testing-library/jest-dom";
 export * from "@testing-library/react";
 export { default as userEvent } from "@testing-library/user-event";

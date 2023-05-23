@@ -19,8 +19,7 @@ import {
   useWatch,
 } from "react-hook-form";
 import { serviceList } from "../../serviceList";
-import { Service, Tip } from "../../tips.const";
-import tip from "../../components/Tips/Tip";
+import { Service } from "../../tips.const";
 import { useTotalPrice } from "../../useTotalPrice";
 import { Province } from "../../taxByProvinces";
 import { TipSelector } from "../../components/TipSelector/TipSelector";
@@ -160,7 +159,7 @@ const TipFormBack: React.FC<TipFormProps> = ({ provinces, services }) => {
             </select>
           </FormGroup>
           <Row>
-            <TipSelector serviceId={serviceId} />
+            <TipSelector />
           </Row>
 
           <FormGroup>
