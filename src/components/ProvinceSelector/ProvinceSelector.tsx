@@ -2,17 +2,19 @@ import React from "react";
 import { Input } from "reactstrap";
 import { Province } from "../../taxByProvinces";
 import { useField } from "formik";
+import { useTranslation } from "react-i18next";
 
 type ProvinceSelectorProps = {
   provinces: Province[];
 };
 const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ provinces }) => {
   const [field] = useField("provinceId");
+  const { t } = useTranslation("form");
 
   return (
     <div className={"mb-0 me-1"}>
       <label htmlFor={"provinceId"} aria-hidden={true} hidden={true}>
-        select a province
+        {t("province.label")}
       </label>
       <Input
         type={"select"}

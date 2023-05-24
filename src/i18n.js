@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import formTranslationFR from "../public/locales/fr/form.json";
+import defaultTranslationFr from "../public/locales/fr/default.json";
 
 i18n
   .use(Backend)
@@ -18,6 +19,7 @@ i18n
     resources: {
       fr: {
         form: formTranslationFR,
+        default: defaultTranslationFr,
       },
     },
   });

@@ -79,7 +79,7 @@ export const TipSelector: React.FC = () => {
     <fieldset>
       <FormGroup>
         <Label htmlFor="tips">{t("tip.label")}</Label>
-        <Row className={"gy-2"} xs={3}>
+        <Row className={"gy-2 pt-1"} xs={3}>
           {tips.map(({ value, unit }) => (
             <Tip
               key={`col-id-${value}`}
@@ -95,9 +95,9 @@ export const TipSelector: React.FC = () => {
             onClick={toggle}
             color={"link"}
             outline
-            className={"text-start border-0 text-success"}
+            className={"text-start border-0 text-success fs-7"}
           >
-            Customize {isOpen ? <>&uarr;</> : <>&darr;</>}
+            {t("tip.customize")} {isOpen ? <>&uarr;</> : <>&darr;</>}
           </Button>
 
           <Collapse isOpen={isOpen}>

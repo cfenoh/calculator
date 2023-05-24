@@ -10,7 +10,9 @@ const BasePrice = () => {
     <FieldWrapper>
       <Label for={"price"}>
         {t("price.label")}
-        <span className={"fs-0 text-muted ms-0 fst-italic"}>(excl. taxes)</span>
+        <span className={"fs-0 text-muted ms-0 fst-italic"}>
+          ({t("taxes.excluded")})
+        </span>
       </Label>
       <NumberTextField name={"price"} />
     </FieldWrapper>

@@ -1,17 +1,26 @@
 {
-  "heading": "TipSmart",
+  "heading": "<0>Tip'</0><1>Buddy</1>",
   "price": {
     "label": "Prix"
   },
   "service": {
     "label": "Sélectionnez un service"
   },
+  "province": {
+    "label": "Sélectionnez une province"
+  },
   "shouldApplyTipBeforeTax": "Pourboire avant Taxes?",
   "total": "Total",
   "tip": {
     "label": "Choisissez un pourboire",
     "computed": "Pourboire",
-    "beforeTax": "Pourboire avant Taxes (non inclus)"
+    "beforeTax": "Pourboire avant Taxes (non inclus)",
+    "customize": "Montant personnalisé"
   },
-  "taxes": "Taxes"
+  "taxes": {
+    "label": "Taxes",
+    "included": "ttc",
+    "excluded": "sans taxes"
+  }
+
 }

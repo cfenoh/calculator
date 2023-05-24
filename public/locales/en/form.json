@@ -1,13 +1,20 @@
 {
-  "heading": "Welcome to TipSmart",
+  "heading": "<0>Tip'</0><1>Buddy</1>",
   "price": {
     "label": "Price"
   },
   "service": {
     "label": "select a service"
   },
+  "province": {
+    "label": "Select a province"
+  },
   "shouldApplyTipBeforeTax": "Apply tip before taxes",
   "total": "total",
   "tip": "Tip",
-  "taxes": "Taxes"
+  "taxes": {
+    "label": "Taxes",
+    "included": "taxes incl",
+    "excluded": "taxes excl"
+  }
 }

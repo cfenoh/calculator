@@ -29,7 +29,7 @@ const FormTotal = () => {
           className={"border-0 d-flex justify-content-between"}
         >
           <span>
-            Taxes
+            {t("taxes.label")}
             <span className={"fs-0 text-muted ms-1"} title={"province-taxes"}>
               ({provinceTax.percentage}%)
             </span>
@@ -57,7 +57,8 @@ const FormTotal = () => {
       </ListGroup>
       <Row className={"total-result mt-1 align-items-center rounded"}>
         <Col className={"col-xs-2"}>
-          {t("total")} <span className={"text-muted fs-0"}>incl. taxes</span>
+          {t("total")}{" "}
+          <span className={"text-muted fs-0"}>({t("taxes.included")})</span>
         </Col>
         <Col className={"text-end fs-1"} title={"total"}>
           {total}
