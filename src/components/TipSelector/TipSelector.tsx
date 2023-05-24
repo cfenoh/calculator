@@ -18,6 +18,7 @@ import { FieldInputProps, useField, useFormikContext } from "formik";
 import { Inputs } from "../../features/TipForm/types";
 import { useTranslation } from "react-i18next";
 import { useTotalPrice } from "../../useTotalPrice";
+import NumberTextField from "../../features/TipForm/NumberTextField";
 
 function Tip(props: {
   value: number;
@@ -100,11 +101,7 @@ export const TipSelector: React.FC = () => {
           </Button>
 
           <Collapse isOpen={isOpen}>
-            <Input
-              {...tipField}
-              className={"w-100 py-3"}
-              data-testid={"custom-tip"}
-            />
+            <NumberTextField {...tipField} data-testid={"custom-tip"} />
           </Collapse>
         </Row>
       </FormGroup>
