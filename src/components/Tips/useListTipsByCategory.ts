@@ -1,18 +1,18 @@
-import { TipCategory } from "../../tips.const";
+import { Service } from "../../tips.const";
 import React, { useState } from "react";
 
 export const useListTipsByCategory = ({
   tipCategories,
   categoryId,
 }: {
-  tipCategories: TipCategory[];
-  categoryId: TipCategory["id"];
+  tipCategories: Service[];
+  categoryId: Service["id"];
 }) => {
   const [tips, setTips] = useState<{
-    tips: TipCategory["items"];
+    tips: Service["tips"];
     unit: string;
   }>(() => ({
-    tips: tipCategories[0].items,
+    tips: tipCategories[0].tips,
     unit: tipCategories[0].unit,
   }));
 
@@ -26,7 +26,7 @@ export const useListTipsByCategory = ({
       return;
     }
     setTips({
-      tips: foundCategory.items,
+      tips: foundCategory.tips,
       unit: foundCategory.unit,
     });
     setIsLoading(false);

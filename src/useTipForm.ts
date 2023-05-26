@@ -1,14 +1,31 @@
 import React, { ChangeEvent, useState } from "react";
-import { TipCategory } from "./tips.const";
+import { Service } from "./tips.const";
+import { extractInitialTipCategorySubset } from "./components/CategoriesSelector/helper";
+import { serviceList } from "./serviceList";
+import tip from "./components/Tips/Tip";
 
 export type TipFormFields = {
   price: number | string;
-  provinceId: number;
+  province: number;
   tip: number;
-  categoryId: TipCategory["id"];
+  categoryId: Service["id"];
   shouldApplyTipOnBasePrice: boolean;
 };
 
+export type FormState = {
+  price: number | string;
+  selectedProvinceId: number;
+  selectedCategoryId: Service["id"];
+  categories: Service[];
+  tip: {
+    suggested: number;
+    selected: number;
+    unit: string;
+    note: string;
+    rating: string;
+  };
+  shouldApplyTipOnBasePrice: boolean;
+};
 export const useTipForm = (
   initialValues: TipFormFields
 ): [TipFormFields, (event: React.ChangeEvent<HTMLInputElement>) => void] => {
@@ -25,7 +42,8 @@ function useForm<T>(initialFields: T) {
       const { type, name, checked, value } = event.target;
       setFields((prevFields) => ({
         ...prevFields,
-        [name]: type === "checkbox" ? checked : Number(value),
+        [name]:
+          type === "checkbox" ? checked : value === "0" ? "" : Number(value),
       }));
     },
     []
@@ -37,3 +55,21 @@ function useForm<T>(initialFields: T) {
 
   return { fields, handleChange, reset };
 }
+
+const ActionType = <const>{
+  PriceUpdated: "PriceUpdated",
+  TipUpdated: "TipUpdated",
+  TipCategoryUpdated: "TipCategoryUpdated",
+  AppliedTipOnBasePriceUpdated: "AppliedTipOnBasePriceUpdated",
+};
+type Action = {
+  type: keyof typeof ActionType;
+  payload: string | number;
+};
+
+export const FormTipReducer = (state: FormState, action: Action): FormState => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};

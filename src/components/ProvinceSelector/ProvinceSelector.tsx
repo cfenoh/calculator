@@ -1,28 +1,28 @@
 import React from "react";
-import { FormGroup, Input, Label } from "reactstrap";
-import numeral from "numeral";
+import { Input } from "reactstrap";
 import { Province } from "../../taxByProvinces";
+import { useField } from "formik";
+import { useTranslation } from "react-i18next";
 
 type ProvinceSelectorProps = {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   provinces: Province[];
-
-  defaultIndex: number;
 };
-const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({
-  provinces,
-  onChange,
-  defaultIndex = 6,
-}) => {
+const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ provinces }) => {
+  const [field] = useField("provinceId");
+  const { t } = useTranslation("form");
+
   return (
     <div className={"mb-0 me-1"}>
+      <label htmlFor={"provinceId"} aria-hidden={true} hidden={true}>
+        {t("province.label")}
+      </label>
       <Input
         type={"select"}
         id={"provinceId"}
-        name={"provinceId"}
-        onChange={onChange}
+        role={"combobox"}
+        aria-label={"provinceId"}
         className={"border-0 text-success text-uppercase"}
-        defaultValue={defaultIndex}
+        {...field}
       >
         {provinces.map(({ shortName, id }) => (
           <option key={id} value={id} className={"text-uppercase"}>
