@@ -20,8 +20,7 @@ function App() {
               "d-flex flex-row justify-content-between align-items-center align-content-center border-2"
             }
           >
-            <LangSelector />
-            <List className={"me-3"}>
+            <List className={"ps-3"}>
               <ListInlineItem>
                 <a
                   href={"https://tally.so/r/n07EQB"}
@@ -48,6 +47,7 @@ function App() {
                 </a>
               </ListInlineItem>
             </List>
+            <LangSelector />
           </Container>
         </Row>
       </div>

@@ -958,6 +958,13 @@
   dependencies:
     regenerator-runtime "^0.13.10"
 
+"@babel/runtime@^7.19.4":
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.0.tgz#b7ca53ae391c404037540724186038afd83e26f9"
+  integrity sha512-TT6NB0oszYQ4oxLNUdG+FNHIc3MohXVCKA2BeyQ4WeM2VCSC6wBZ6P0Yfkdzxv+87D8Xk0LJyHeCKlWMvpZt0g==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/runtime@^7.20.6", "@babel/runtime@^7.9.2":
   version "7.20.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.13.tgz#7055ab8a7cff2b8f6058bf6ae45ff84ad2aded4b"
@@ -3015,6 +3022,13 @@ https-proxy-agent@^5.0.1:
   dependencies:
     agent-base "6"
     debug "4"
+
+i18next-browser-languagedetector@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-7.0.1.tgz#ead34592edc96c6c3a618a51cb57ad027c5b5d87"
+  integrity sha512-Pa5kFwaczXJAeHE56CHG2aWzFBMJNUNghf0Pm4SwSrEMps/PTKqW90EYWlIvhuYStf3Sn1K0vw+gH3+TLdkH1g==
+  dependencies:
+    "@babel/runtime" "^7.19.4"
 
 i18next-http-backend@^2.1.1:
   version "2.1.1"

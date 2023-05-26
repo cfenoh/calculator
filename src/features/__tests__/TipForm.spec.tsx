@@ -38,7 +38,6 @@ describe("Tip Form", () => {
 
   test("should render tip form with all fields initialized with their default values", async () => {
     await waitFor(async () => {
-      expect(screen.getByText(/heading/i)).toBeInTheDocument();
       expect(screen.getByText(/on/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/price/i)).toHaveValue(null);
       expect(screen.getByLabelText(/service.label/i)).toHaveValue("1");

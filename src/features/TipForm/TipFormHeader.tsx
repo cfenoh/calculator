@@ -11,8 +11,8 @@ const TipFormHeader = () => {
           "d-flex flex-row justify-content-between align-items-center align-content-center"
         }
       >
-        <ProvinceSelector provinces={provinces} />
         &nbsp;
+        <ProvinceSelector provinces={provinces} />
       </Col>
     </Row>
   );

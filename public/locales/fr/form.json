@@ -9,7 +9,7 @@
   "province": {
     "label": "Sélectionnez une province"
   },
-  "shouldApplyTipBeforeTax": "Pourboire avant Taxes?",
+  "shouldApplyTipBeforeTax": "Pourboire avant Taxes ?",
   "total": "Total",
   "tip": {
     "label": "Choisissez un pourboire",
@@ -22,5 +22,4 @@
     "included": "ttc",
     "excluded": "sans taxes"
   }
-
 }

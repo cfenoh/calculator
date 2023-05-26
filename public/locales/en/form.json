@@ -4,14 +4,19 @@
     "label": "Price"
   },
   "service": {
-    "label": "select a service"
+    "label": "Select a service"
   },
   "province": {
     "label": "Select a province"
   },
-  "shouldApplyTipBeforeTax": "Apply tip before taxes",
-  "total": "total",
-  "tip": "Tip",
+  "shouldApplyTipBeforeTax": "Apply tip before taxes?",
+  "total": "Total",
+  "tip": {
+    "label": "Select a tip",
+    "computed": "Tip",
+    "beforeTax": "Tip Before Taxes",
+    "customize": "Customize"
+  },
   "taxes": {
     "label": "Taxes",
     "included": "taxes incl",

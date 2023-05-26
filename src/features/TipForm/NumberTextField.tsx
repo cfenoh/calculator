@@ -16,7 +16,7 @@ const isKeyInNotAllowedChar = (
 
 const NumberTextField: React.FC<{
   name: string;
-}> = ({ name }) => {
+}> = ({ name, ...rest }) => {
   const [field] = useField(name);
   return (
     <Input
@@ -28,6 +28,7 @@ const NumberTextField: React.FC<{
       className={"form-base-input rounded-1"}
       {...field}
       value={field.value}
+      {...rest}
     />
   );
 };
