@@ -6,7 +6,7 @@ import { LANGUAGES } from "../../features/TipForm/data.const";
 export const LangSelector: React.FC = () => {
   const { t, i18n } = useTranslation("default");
   return (
-    <div className={"mb-0 me-3"}>
+    <div className={"mb-0 w-50"}>
       <label htmlFor={"langId"} aria-hidden={true} hidden={true}>
         {t("footer.lang")}
       </label>
