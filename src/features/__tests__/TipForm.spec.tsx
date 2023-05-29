@@ -121,13 +121,13 @@ describe("Tip Form", () => {
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
-          screen.getByRole("option", { name: /Coffee shop/i })
+          screen.getByRole("option", { name: /coffee-shop/i })
         );
 
         await waitFor(() => {
           expect(
             screen.getByRole("combobox", { name: /service.label/i })
-          ).toHaveDisplayValue("Coffee shop");
+          ).toHaveDisplayValue("coffee-shop");
           expect(
             screen.getByRole("button", { name: /1 \$/i })
           ).toBeInTheDocument();
@@ -151,11 +151,11 @@ describe("Tip Form", () => {
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
-          screen.getByRole("option", { name: /Coffee shop/i })
+          screen.getByRole("option", { name: /coffee-shop/i })
         );
         expect(
           screen.getByRole("combobox", { name: /service.label/i })
-        ).toHaveDisplayValue("Coffee shop");
+        ).toHaveDisplayValue("coffee-shop");
 
         expect(
           screen.getByRole("button", { name: /1 \$/i })
@@ -168,11 +168,11 @@ describe("Tip Form", () => {
 
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
-          screen.getByRole("option", { name: /Fast food/i })
+          screen.getByRole("option", { name: /fast-food/i })
         );
         expect(
           screen.getByRole("combobox", { name: /service.label/i })
-        ).toHaveDisplayValue("Fast food");
+        ).toHaveDisplayValue("fast-food");
 
         expect(screen.getByRole("button", { name: /10/i })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: /12/i })).toBeInTheDocument();
@@ -270,7 +270,7 @@ describe("Tip Form", () => {
         });
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /service.label/i }),
-          screen.getByRole("option", { name: /Coffee shop/i })
+          screen.getByRole("option", { name: /coffee-shop/i })
         );
         expect(screen.getByTitle("chosen-tip")).toBeInTheDocument();
         expect(screen.getByTitle("chosen-tip")).toHaveTextContent("(1.5 $)");
