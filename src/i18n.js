@@ -2,9 +2,11 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import formTranslationFR from "../public/locales/fr/form.json";
-import defaultTranslationFr from "../public/locales/fr/default.json";
+import defaultTranslationFR from "../public/locales/fr/default.json";
+import servicesTranslationFR from "../public/locales/fr/services.json";
 import formTranslationEN from "../public/locales/en/form.json";
-import defaultTranslationEn from "../public/locales/en/default.json";
+import defaultTranslationEN from "../public/locales/en/default.json";
+import servicesTranslationEN from "../public/locales/en/services.json";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
@@ -23,11 +25,13 @@ i18n
     resources: {
       fr: {
         form: formTranslationFR,
-        default: defaultTranslationFr,
+        default: defaultTranslationFR,
+        services: servicesTranslationFR,
       },
       en: {
         form: formTranslationEN,
-        default: defaultTranslationEn,
+        default: defaultTranslationEN,
+        services: servicesTranslationEN,
       },
     },
   });

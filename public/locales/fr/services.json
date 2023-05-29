@@ -1,0 +1,16 @@
+{
+  "fast-food": "Restauration rapide",
+  "sit-down-restaurant": "Restaurant sur place",
+  "coffee-shop": "Café",
+  "delivery": "Livraison",
+  "bartender": "Barman",
+  "haircut": "Coupe de cheveux",
+  "manicure/pedicure": "Manucure/pédicure",
+  "massage": "Massage",
+  "taxi": "Taxi",
+  "bellhop": "Portier",
+  "housekeeping": "Entretien ménager",
+  "coat-check": "Vestiaire",
+  "musician": "Musicien",
+  "valet": "Voiturier"
+}

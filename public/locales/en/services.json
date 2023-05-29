@@ -1,0 +1,16 @@
+{
+  "fast-food": "Fast food",
+  "sit-down-restaurant": "Sit-down restaurant",
+  "coffee-shop": "Coffee shop",
+  "delivery": "Delivery",
+  "bartender": "Bartender",
+  "haircut": "Haircut",
+  "manicure/pedicure": "Manicure/pedicure",
+  "massage": "Massage",
+  "taxi": "Taxi",
+  "bellhop": "Bellhop",
+  "housekeeping": "Housekeeping",
+  "coat-check": "Coat check",
+  "musician": "Musician",
+  "valet": "Valet"
+}

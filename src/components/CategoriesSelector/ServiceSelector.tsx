@@ -8,7 +8,7 @@ type ServiceSelectorProps = {
   services: SelectableServices;
 };
 const ServiceSelector: React.FC<ServiceSelectorProps> = ({ services }) => {
-  const { t } = useTranslation("form");
+  const { t } = useTranslation(["form", "services"]);
   const [field] = useField("serviceId");
   return (
     <FormGroup>
@@ -22,9 +22,9 @@ const ServiceSelector: React.FC<ServiceSelectorProps> = ({ services }) => {
               className={"text-capitalize"}
               {...field}
             >
-              {services.map(({ id, label }) => (
+              {services.map(({ id, transKey }) => (
                 <option key={id} value={id} className={"text-uppercase"}>
-                  {label}
+                  {t(transKey, { ns: "services" })}
                 </option>
               ))}
             </Input>
