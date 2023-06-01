@@ -101,11 +101,7 @@ export const TipSelector: React.FC = () => {
           </Button>
 
           <Collapse isOpen={isOpen}>
-            <NumberTextField
-              {...tipField}
-              data-testid={"custom-tip"}
-              pattern="[0-9]*"
-            />
+            <NumberTextField {...tipField} data-testid={"custom-tip"} />
           </Collapse>
         </Row>
       </FormGroup>
