@@ -53,10 +53,9 @@ export const useTotalPrice = ({
         return Number(tipRate);
       }
       const tipInFraction = Number(tipRate) / 100;
-      const tip = shouldApplyTipOnBasePrice
+      return shouldApplyTipOnBasePrice
         ? priceTaxExcluded * tipInFraction
         : totalTaxIncludedBeforeTip * tipInFraction;
-      return tip;
     }
 
     const tip = computeTip();

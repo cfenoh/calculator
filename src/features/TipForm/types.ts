@@ -6,7 +6,7 @@ export type TipFormProps = {
   services: Service[];
 };
 export type Inputs = {
-  price: number;
+  price: string;
   provinceId: string;
   serviceId: string;
   shouldApplyTipBeforeTax: boolean;

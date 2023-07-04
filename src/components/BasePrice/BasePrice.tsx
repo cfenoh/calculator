@@ -1,6 +1,6 @@
 import React from "react";
 import FieldWrapper from "../shared/Layout/FieldWrapper";
-import { Label } from "reactstrap";
+import { Label, Row } from "reactstrap";
 import NumberTextField from "../../features/TipForm/NumberTextField";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +14,9 @@ const BasePrice = () => {
           ({t("taxes.excluded")})
         </span>
       </Label>
-      <NumberTextField name={"price"} />
+      <div>
+        <NumberTextField name={"price"} />
+      </div>
     </FieldWrapper>
   );
 };

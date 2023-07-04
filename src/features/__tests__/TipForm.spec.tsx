@@ -39,7 +39,7 @@ describe("Tip Form", () => {
   test("should render tip form with all fields initialized with their default values", async () => {
     await waitFor(async () => {
       expect(screen.getByText(/on/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/price/i)).toHaveValue(null);
+      expect(screen.getByLabelText(/price/i)).toHaveValue("0");
       expect(screen.getByLabelText(/service.label/i)).toHaveValue("1");
       // Related suggested tip is checked by default
       relatedTipsAreDisplayed(["10", "12", "15"]);
@@ -200,33 +200,33 @@ describe("Tip Form", () => {
       });
     });
 
-    test("should allow only number in price field", () => {
+    test("should allow only valid number in price field", () => {
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: "abcd" },
       });
-      expect(screen.getByLabelText(/price.label/i)).toHaveValue(null);
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("");
 
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: "e" },
       });
-      expect(screen.getByLabelText(/price.label/i)).toHaveValue(null);
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("");
 
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: 12.9 },
       });
-      expect(screen.getByLabelText(/price.label/i)).toHaveValue(12.9);
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("129");
 
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: "12,9" },
       });
-      expect(screen.getByLabelText(/price.label/i)).toHaveValue(null);
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("12,9");
     });
 
     test("should clear price input when user types if the current field value is 0", () => {
       fireEvent.change(screen.getByLabelText(/price.label/i), {
         target: { value: "019" },
       });
-      expect(screen.getByLabelText(/price.label/i)).toHaveValue(19);
+      expect(screen.getByLabelText(/price.label/i)).toHaveValue("19");
     });
 
     test("user should be able see the taxes amount and percentage", () => {

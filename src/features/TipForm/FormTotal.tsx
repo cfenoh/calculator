@@ -14,7 +14,7 @@ const FormTotal = () => {
     tip: computedTip,
     tax: provinceTax,
   } = useTotalPrice({
-    basePrice: Number(values.price),
+    basePrice: parseFloat(values.price?.replace(",", ".")),
     provinceId: Number(values.provinceId) || 1,
     tipRate: Number(values.tip) || 0,
     tipUnit: values.tipUnit || "percentage",
