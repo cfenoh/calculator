@@ -13,6 +13,7 @@
     "typecheck": "vitest typecheck"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.0.1",
     "add": "^2.0.6",
     "big.js": "^6.2.1",
     "formik": "^2.2.9",
