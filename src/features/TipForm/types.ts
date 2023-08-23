@@ -1,8 +1,6 @@
-import { Province } from "../../taxByProvinces";
 import { Service } from "../../tips.const";
 
 export type TipFormProps = {
-  provinces: Province[];
   services: Service[];
 };
 export type Inputs = {

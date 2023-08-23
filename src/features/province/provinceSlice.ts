@@ -1,10 +1,9 @@
-export type Province = {
-  id: number;
-  name: string;
-  value: number;
-  shortName: string;
-};
-export const provinces: Province[] = [
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { Province } from "./provinces";
+import { RootState } from "../../store/store";
+
+const provinces = [
   {
     id: 1,
     name: "British Columbia",
@@ -84,3 +83,27 @@ export const provinces: Province[] = [
     shortName: "NT",
   },
 ];
+const initialState: {
+  list: Province[];
+  selectedProvince: Province;
+} = {
+  list: provinces,
+  selectedProvince: provinces[4],
+};
+const { actions, reducer } = createSlice({
+  name: "province",
+  initialState,
+  reducers: {
+    selectProvince(state, action: PayloadAction<number>) {
+      const selectedID = action.payload;
+      state.selectedProvince = state.list[selectedID];
+    },
+  },
+});
+
+export const getProvinces = (state: RootState) => state.provinces.list;
+export const getSelectedProvince = (state: RootState) =>
+  state.provinces.selectedProvince;
+
+export default { reducer };
+export const { selectProvince } = actions;

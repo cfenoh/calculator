@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { provinces } from "./taxByProvinces";
 import { serviceList } from "./serviceList";
 import TipForm from "./features/TipForm/TipForm";
 import { Container, List, ListInlineItem } from "reactstrap";
@@ -13,7 +12,7 @@ function App() {
   return (
     <Suspense fallback="loading">
       <div className="App max-width-450 margin-auto">
-        <TipForm provinces={provinces} services={serviceList} />
+        <TipForm services={serviceList} />
         <Container
           className={
             "d-flex flex-row justify-content-between align-items-center align-content-center border-2 px-4 border-2"

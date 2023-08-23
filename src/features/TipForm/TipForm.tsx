@@ -3,7 +3,7 @@ import { Container, Form as FormStrap } from "reactstrap";
 import { TipFormProps } from "./types";
 import TipFormHeader from "./TipFormHeader";
 import { Formik } from "formik";
-import { DEFAULT_PROVINCE_ID, DEFAULT_SERVICE_ID } from "./data.const";
+import { DEFAULT_SERVICE_ID } from "./data.const";
 import { getServiceById, getSuggestedTipByServiceId } from "./helper";
 import ServiceSelector from "../../components/CategoriesSelector/ServiceSelector";
 import { TipSelector } from "../../components/TipSelector/TipSelector";
@@ -17,7 +17,6 @@ const TipForm: React.FC<TipFormProps> = ({ services }) => {
       <Formik
         initialValues={{
           price: "",
-          provinceId: DEFAULT_PROVINCE_ID.toString(),
           serviceId: DEFAULT_SERVICE_ID.toString(),
           tipUnit: getServiceById(DEFAULT_SERVICE_ID)?.unit,
           tip: getSuggestedTipByServiceId(DEFAULT_SERVICE_ID),

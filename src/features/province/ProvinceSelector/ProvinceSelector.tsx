@@ -1,15 +1,20 @@
 import React from "react";
 import { Input } from "reactstrap";
-import { Province } from "../../taxByProvinces";
 import { useField } from "formik";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {
+  getProvinces,
+  getSelectedProvince,
+  selectProvince,
+} from "../provinceSlice";
 
-type ProvinceSelectorProps = {
-  provinces: Province[];
-};
-const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ provinces }) => {
+const ProvinceSelector: React.FC = () => {
   const [field] = useField("provinceId");
   const { t } = useTranslation("form");
+  const provinces = useAppSelector(getProvinces);
+  const selectedProvince = useAppSelector(getSelectedProvince);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={"mb-0 me-1"}>
@@ -23,9 +28,17 @@ const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ provinces }) => {
         aria-label={"provinceId"}
         className={"border-0 text-success text-uppercase"}
         {...field}
+        onChange={(evt) =>
+          dispatch(selectProvince(Number(evt.target.value) || 5))
+        }
       >
         {provinces.map(({ shortName, id }) => (
-          <option key={id} value={id} className={"text-uppercase"}>
+          <option
+            key={id}
+            value={id}
+            className={"text-uppercase"}
+            selected={selectedProvince.id === id}
+          >
             {shortName}
           </option>
         ))}

@@ -1,7 +1,6 @@
 import React from "react";
 import { Col, Row } from "reactstrap";
-import ProvinceSelector from "../../components/ProvinceSelector/ProvinceSelector";
-import { provinces } from "../../taxByProvinces";
+import ProvinceSelector from "../province/ProvinceSelector/ProvinceSelector";
 
 const TipFormHeader = () => {
   return (
@@ -12,7 +11,7 @@ const TipFormHeader = () => {
         }
       >
         &nbsp;
-        <ProvinceSelector provinces={provinces} />
+        <ProvinceSelector />
       </Col>
     </Row>
   );
