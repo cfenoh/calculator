@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import provinceSlice from "../features/province/provinceSlice";
+import provinceSlice from "../components/Province/provinceSlice";
+import amountSlice from "../components/Amount/amountSlice";
+import tipSlice from "../components/Tip/tipSlice";
 
 export const store = configureStore({
   reducer: {
     provinces: provinceSlice.reducer,
+    amount: amountSlice.reducer,
+    tip: tipSlice.reducer,
   },
 });
 

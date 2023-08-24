@@ -14,11 +14,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </Provider>
   </React.StrictMode>
 );
-function Sanitize() {
-  const div: NodeListOf<HTMLDivElement> =
-    document.querySelectorAll("._quiz__question_*");
-  div.forEach((item) => {
-    item.style.setProperty("display", "inline");
-    item.style.setProperty("font-weight", "normal");
-  });
-}

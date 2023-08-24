@@ -7,7 +7,7 @@ import {
   fireEvent,
   waitFor,
 } from "../../setupTests";
-import TipForm from "../TipForm/TipForm";
+import Form from "../Tip/Form";
 import {
   defaultSuggestedTipIsChecked,
   getTaxAmount,
@@ -28,7 +28,7 @@ describe("Tip Form", () => {
       };
     });
     act(() => {
-      render(<TipForm services={services} provinces={provinces} />);
+      render(<Form services={services} provinces={provinces} />);
     });
   });
 
@@ -82,7 +82,7 @@ describe("Tip Form", () => {
       });
     });
 
-    describe("When user changes the province", () => {
+    describe("When user changes the Province", () => {
       test("the taxes changes and the total is updated", async () => {
         await userEvent.selectOptions(
           screen.getByRole("combobox", { name: /provinceId/i }),
@@ -237,8 +237,8 @@ describe("Tip Form", () => {
       expect(screen.getByTitle("tax-amount")).toBeInTheDocument();
       expect(screen.getByTitle("tax-amount")).toHaveTextContent("2.47");
 
-      expect(screen.getByTitle("province-taxes")).toBeInTheDocument();
-      expect(screen.getByTitle("province-taxes")).toHaveTextContent("(13.00%)");
+      expect(screen.getByTitle("Province-taxes")).toBeInTheDocument();
+      expect(screen.getByTitle("Province-taxes")).toHaveTextContent("(13.00%)");
     });
 
     test("user should be able to customize tip amount then total is updated", () => {
