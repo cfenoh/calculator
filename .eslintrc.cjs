@@ -19,6 +19,10 @@ module.exports = {
     },
     // Tells eslint how to resolve imports
     "import/resolver": {
+      alias:{
+        map: [['@', './src']],
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+      },
       node: {
         paths: ["src"],
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
@@ -31,7 +35,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "eslint-plugin-import"],
   rules: {
     "react-hooks/exhaustive-deps": "error",
   },
