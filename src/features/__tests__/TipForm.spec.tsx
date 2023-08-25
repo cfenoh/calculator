@@ -13,9 +13,7 @@ import {
   getTaxAmount,
   getTipAmount,
   listItemByName,
-  provinces,
   relatedTipsAreDisplayed,
-  services,
 } from "./util";
 
 describe("Tip Form", () => {
@@ -28,7 +26,7 @@ describe("Tip Form", () => {
       };
     });
     act(() => {
-      render(<Form services={services} provinces={provinces} />);
+      render(<Form />);
     });
   });
 

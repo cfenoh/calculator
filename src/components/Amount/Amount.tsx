@@ -10,7 +10,7 @@ const Amount = () => {
   const { t } = useTranslation("form");
   const amount = useAppSelector(getAmount);
   const dispatch = useAppDispatch();
-  const handleAmountChange = (value: string) => {
+  const handleAmountChange = (value: number) => {
     dispatch(addAmount(value));
   };
   return (

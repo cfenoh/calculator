@@ -12,7 +12,7 @@ export const { actions, reducer } = createSlice({
   name: "amount",
   initialState,
   reducers: {
-    addAmount(state, action: PayloadAction<string>) {
+    addAmount(state, action: PayloadAction<number>) {
       state.value = Number(action.payload) || 0;
     },
   },
