@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Province } from "./provinces";
-import { RootState } from "../../store/store";
+import { RootState } from "@/store/store";
 
 const provinces = [
   {

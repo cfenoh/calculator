@@ -2,7 +2,7 @@ import React from "react";
 import { Col, FormGroup, Input, Label, Row } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { useField } from "formik";
-import { SelectableServices } from "../../../features/Tip/types";
+import { SelectableServices } from "@/features/Tip/types";
 
 type ServiceSelectorProps = {
   services: SelectableServices;

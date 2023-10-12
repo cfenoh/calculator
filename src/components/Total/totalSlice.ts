@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../store/store";
+import { RootState } from "@/store/store";
 
 export type TotalState = {
   taxRate: number;

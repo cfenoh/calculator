@@ -2,7 +2,7 @@ import React from "react";
 import { useField } from "formik";
 import { FormGroup, Input, Label } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { toggleBeforeTaxes } from "../tipSlice";
 
 const TipBeforeTaxToggle = () => {

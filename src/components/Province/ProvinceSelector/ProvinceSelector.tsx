@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "reactstrap";
 import { useField } from "formik";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   getProvinces,
   getSelectedProvince,

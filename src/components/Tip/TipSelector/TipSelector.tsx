@@ -7,10 +7,10 @@ import {
 } from "../CategoriesSelector/helper";
 import { useField, useFormikContext } from "formik";
 import type { FieldInputProps } from "formik";
-import type { Inputs } from "../../../features/Tip/types";
+import type { Inputs } from "@/features/Tip/types";
 import { useTranslation } from "react-i18next";
 import NumberTextField from "../../Shared/TextField/NumberTextField";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getComputedTip, selectATip, SelectedTip } from "../tipSlice";
 
 function Tip(props: {

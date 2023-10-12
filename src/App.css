@@ -120,9 +120,3 @@ select {
 .fs-7{
   font-size: 13px;
 }
-
-
-._quiz__question_*{
-  font-weight: normal;
-  display: inline;
-}

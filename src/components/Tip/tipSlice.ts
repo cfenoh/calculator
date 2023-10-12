@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store/store";
+import { RootState } from "@/store/store";
 
 export type SelectedTip = {
   unit: string;

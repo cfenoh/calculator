@@ -2,7 +2,7 @@ import React from "react";
 import { Col, ListGroup, ListGroupItem, Row } from "reactstrap";
 import { _getTipUnitSymbol } from "../Tip/CategoriesSelector/helper";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import { getTotal } from "./totalSlice";
 import { getSelectedProvince } from "../Province/provinceSlice";
 import { getSelectedTip } from "../Tip/tipSlice";

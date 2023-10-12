@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Formik } from "formik";
 import FormTotal from "../../components/Total/FormTotal";
 import Amount from "../../components/Amount/Amount";
-import { Tip } from "../../components/Tip/Tip";
+import { Tip } from "@/components/Tip/Tip";
 
 const Form: React.FC = () => {
   return (

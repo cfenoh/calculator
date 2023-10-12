@@ -3,7 +3,7 @@ import FieldWrapper from "../Shared/Layout/FieldWrapper";
 import { Label } from "reactstrap";
 import NumberTextField from "../Shared/TextField/NumberTextField";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addAmount, getAmount } from "./amountSlice";
 
 const Amount = () => {

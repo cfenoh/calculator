@@ -1,4 +1,4 @@
-import { Service } from "../../components/Tip/tip.types";
+import { Service } from "@/components/Tip/tip.types";
 export type Inputs = {
   price: string;
   provinceId: string;
