@@ -17,7 +17,7 @@ const ProvinceSelector: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={"mb-0 me-1"}>
+    <div>
       <label htmlFor={"provinceId"} aria-hidden={true} hidden={true}>
         {t("Province.label")}
       </label>
@@ -33,9 +33,9 @@ const ProvinceSelector: React.FC = () => {
         }
         defaultValue={selectedProvince.id}
       >
-        {provinces.map(({ shortName, id }) => (
+        {provinces.map(({ name, id }) => (
           <option key={id} value={id} className={"text-uppercase"}>
-            {shortName}
+            {name}
           </option>
         ))}
       </Input>

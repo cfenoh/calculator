@@ -11,6 +11,8 @@ const Header = () => {
         }
       >
         &nbsp;
+      </Col>
+      <Col>
         <ProvinceSelector />
       </Col>
     </Row>
