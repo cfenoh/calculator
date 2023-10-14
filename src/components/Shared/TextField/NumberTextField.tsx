@@ -22,7 +22,7 @@ const NumberTextField: React.FC<{
       defaultValue={initialValue || 0}
       decimalsLimit={2}
       className={"form-control form-base-input rounded-1"}
-      decimalSeparator={","}
+      decimalSeparator={"."}
       groupSeparator={" "}
       inputMode="decimal"
       onChange={handleChange}
