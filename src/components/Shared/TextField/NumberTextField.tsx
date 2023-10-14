@@ -24,7 +24,7 @@ const NumberTextField: React.FC<{
       className={"form-control form-base-input rounded-1"}
       decimalSeparator={"."}
       groupSeparator={" "}
-      inputMode="decimal"
+      inputMode="numeric"
       onChange={handleChange}
       {...rest}
     />
